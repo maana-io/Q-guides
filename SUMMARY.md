@@ -13,7 +13,7 @@
       * [Computational Knowledge Graph Features](developer/graphql/graphql-schema-language/computational-knowledge-graph-features.md)
       * [Knowledge Microservices](developer/graphql/graphql-schema-language/knowledge-microservices.md)
       * [Graph Mutations](developer/graphql/graphql-schema-language/graph-mutations.md)
-* [Data Scientist Guide](data-scientist-guide.md)
+* [Data Scientist Guide](scientist/README.md)
 * [Administrator Guide](administrator/README.md)
   * [Installation and Setup](administrator/prerequisites/README.md)
     * [Provisioning the Cluster](administrator/prerequisites/provisioning-the-cluster/README.md)
