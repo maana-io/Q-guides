@@ -47,7 +47,7 @@ The newly created Workspace Template will appear in the Templates section. You c
 * Select the **Workspaces** tab at the top of the Maana portal.
 * Select the **+** on the top right of the new menu ribbon that appears. 
 
-![](../../.gitbook/assets/image%20%285%29.png)
+![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image%20%285%29.png)
 
 A new workspace with the name **Untitled** is created.
 
