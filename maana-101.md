@@ -1,7 +1,3 @@
----
-description: High-level introduction to the Maana Platform
----
-
 # Maana 101
 
 ## Maana 101

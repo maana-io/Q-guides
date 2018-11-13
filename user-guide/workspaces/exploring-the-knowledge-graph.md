@@ -1,7 +1,3 @@
----
-description: How to Query the Knowledge Graph using GraphQL
----
-
 # Exploring the Knowledge Graph
 
 ## Exploring the Knowledge Graph \(KG\)

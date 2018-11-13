@@ -1,7 +1,8 @@
-Entity Extractor
-========
+# Entity Extractor
 
-The Maana Entity Extractor bot reads data from sources passes that data through tagger services and stores the data inside Maana.  It recognizes several different types of entities, including:
+## Entity Extractor
+
+The Maana Entity Extractor bot reads data from sources passes that data through tagger services and stores the data inside Maana. It recognizes several different types of entities, including:
 
 * Person, location and organization names
 * Currency, percentages, and numeric values
@@ -9,18 +10,15 @@ The Maana Entity Extractor bot reads data from sources passes that data through 
 * Urls and email addresses
 * Geospatial coordinates and physical quantities
 
-For each entity mention discovered, the extractor creates links between the originating text
-and the instance of the entity kind.   These links can be used for graph 
-walking and downstream analytics. 
+For each entity mention discovered, the extractor creates links between the originating text and the instance of the entity kind. These links can be used for graph walking and downstream analytics.
 
-Assumptions
-===========
+## Assumptions
 
-1.  Both Maana NER Service and Maana Physical Quantity are available.
-2.  Kind being processed contain only text.
+1. Both Maana NER Service and Maana Physical Quantity are available.
+2. Kind being processed contain only text.
 
-Schema
-======
+## Schema
+
 ```graphql
 type Info {
   id: ID!
@@ -147,52 +145,50 @@ type Subscription {
 }
 ```
 
-## Entity Extraction
-The entity extractor service is invoked manually to extract 
-entities.   In the services tab select Maana Entity Extractor and invoke the extractAndLink 
-mutation on the sample_comments.CSV kind:
+### Entity Extraction
 
-```
+The entity extractor service is invoked manually to extract entities. In the services tab select Maana Entity Extractor and invoke the extractAndLink mutation on the sample\_comments.CSV kind:
+
+```text
 mutation 
 {
   extractAndLink(kindName:"sample_comments.CSV",fieldName:"comment")
 }
 ```
-This will extract entities, creating the
- instances and links as necessary.
 
-|  id  | comment |
-| ---- | ------- |
-| 0 | "Barry Carlson worked on the Well 12345." | 
-| 1 | "The Well 12345 was drilled by John Davidson." | 
-| 2 | "The cost to drill this well was $5,345,345." | 
-| 3 | "The MD was 19,000 ft." | 
-| 4 | "External casing diameter was 8.625 inches." | 
-| 5 | "Well 789 was drilled on June 4th, 2019 by Barry Carlson." | 
-| 6 | "Well 12345 was used as an offset." | 
-| 7 | "The depth of Well 12345 was 23,400 feet TVD, with casing strings of 5." | 
-| 8 | "Drilling was by WellCo, Inc." | 
+This will extract entities, creating the instances and links as necessary.
 
-The service will extract the following entity mentions, creating the instances of
-the kinds if they don't already exist:
+| id | comment |
+| :--- | :--- |
+| 0 | "Barry Carlson worked on the Well 12345." |
+| 1 | "The Well 12345 was drilled by John Davidson." |
+| 2 | "The cost to drill this well was $5,345,345." |
+| 3 | "The MD was 19,000 ft." |
+| 4 | "External casing diameter was 8.625 inches." |
+| 5 | "Well 789 was drilled on June 4th, 2019 by Barry Carlson." |
+| 6 | "Well 12345 was used as an offset." |
+| 7 | "The depth of Well 12345 was 23,400 feet TVD, with casing strings of 5." |
+| 8 | "Drilling was by WellCo, Inc." |
 
-| surface form  | kind | 
-| ------------- | ------ | 
+The service will extract the following entity mentions, creating the instances of the kinds if they don't already exist:
+
+| surface form | kind |
+| :--- | :--- |
 | Barry Carlson | Person |
-| 12345 | Number | 
-| $5,345,345 | Currency | 
+| 12345 | Number |
+| $5,345,345 | Currency |
 | 5,345,345 | Number |
 | 19,000 ft | Physical Quantity |
 | 19,000 | Number |
 | 8.625 inches | Physical Quantity |
-| 8.625 | Number | 
+| 8.625 | Number |
 | 789 | Numbrer |
-| June 4th, 2019 | Date | 
+| June 4th, 2019 | Date |
 | 2019 | Date |
-| 23,400 feet | Physical Quantity | 
+| 23,400 feet | Physical Quantity |
 | 23,400 | Number |
 | 5 | Number |
 | WellCo, Inc | Organization |
 
-it also creates a link between each of the entities and their originating text. 
-The links can be inspected either via graphQL, e.g.:
+it also creates a link between each of the entities and their originating text. The links can be inspected either via graphQL, e.g.:
+

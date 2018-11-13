@@ -1,7 +1,3 @@
----
-description: Multiple Mutations in one Query
----
-
 # Graph Mutations
 
 ### Graph Mutations

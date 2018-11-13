@@ -1,28 +1,23 @@
-Fact Recognition
-========
+# Fact Recogntion
 
-This service is used for extracting relations, or facts or triples, from text.  The service is based on Stanford CoreNLP's Information Extraction library (https://nlp.stanford.edu/software/openie.html). 
+## Fact Recognition
 
-This service could extract information from the phrase "Alex bought a bicycle for 50$."  And store a series of triples "Alex", "bought", "bicycle" and "Alex", "bought a bicycle for", "50$".  The extracted information can later be used for filling in tables or reasoning.  The fact recognition service takes in a kind, a field name, and then set of patterns to perform Information Extraction.
+This service is used for extracting relations, or facts or triples, from text. The service is based on Stanford CoreNLP's Information Extraction library \([https://nlp.stanford.edu/software/openie.html](https://nlp.stanford.edu/software/openie.html)\).
 
+This service could extract information from the phrase "Alex bought a bicycle for 50$." And store a series of triples "Alex", "bought", "bicycle" and "Alex", "bought a bicycle for", "50$". The extracted information can later be used for filling in tables or reasoning. The fact recognition service takes in a kind, a field name, and then set of patterns to perform Information Extraction.
 
-Assumptions
-===========
+## Assumptions
 
-1.  Unstructured text that obeys reasonable rules of grammar to enable the parsing of noun and verb phrases. 
-2.  Facts are repeated in text to overcome the generally low recall and precision when working with dependency parsing due to challenges with natural language. 
+1. Unstructured text that obeys reasonable rules of grammar to enable the parsing of noun and verb phrases. 
+2. Facts are repeated in text to overcome the generally low recall and precision when working with dependency parsing due to challenges with natural language. 
 
+## Warnings
 
-Warnings
-==========
+1. The extractByExample and extractByExampleKind are mutations still in research and development, and as such, with certain data, may become long-running.  The use of these mutations should be done with caution.  Future feature releases may address making them more performant and robust.
 
-1.  The extractByExample and extractByExampleKind are mutations still in research and development, and as such, with certain data, may become long-running.  The use of these mutations should be done with caution.  Future feature releases may address making them more performant and robust.
+## Schema
 
-
-Schema
-==========
 ```ruby
-
 type Info {
   id: ID!
   name: String!
@@ -234,20 +229,17 @@ type Gmap {
   entityCorrespondences: [EntityCorrespondence]
   score: Float
 }
-
 ```
 
-
-Example(s)
-==========
+## Example\(s\)
 
 ### HTTP Method: POST
 
 Content-Type: application/json
 
 #### Input to extractTriples
-```ruby
 
+```ruby
 query {
     extractTriples(text: "Alex bought a bike") {
         predicatePhrase {
@@ -261,11 +253,11 @@ query {
         }
     }
 }
-
 ```
-#### Output from extractTriples 
-```ruby
 
+#### Output from extractTriples
+
+```ruby
 {
   "data": {
     "extractTriples": [
@@ -286,8 +278,8 @@ query {
 ```
 
 #### Input to extractByPattern
-```ruby
 
+```ruby
 query {
     extractByPattern(text : "John went to Lynwood and bought a pizza", patterns : [{predicateLemmas : ["purchase"], subjectEntityPattern : ["ANY"], objectEntityPattern : ["ANY"]}]) {
     predicateMatch {
@@ -299,7 +291,7 @@ query {
         snippet {
         value
       }
-       
+
     }
     objectMatch {
         snippet {
@@ -308,10 +300,10 @@ query {
     }
     }
 }
-
 ```
 
 #### Output from extractByPattern
+
 ```ruby
 {
   "data": {
@@ -336,7 +328,5 @@ query {
     ]
   }
 }
-
 ```
-
 

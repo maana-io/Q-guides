@@ -1,7 +1,5 @@
 ---
-description: >-
-  A guide for developing solutions using Maana Knowledge Technology.Query) is an
-  optional
+description: Knowledge Technology - Developer Guide
 ---
 
 # Developer Guide

@@ -1,9 +1,3 @@
----
-description: >-
-  This Guide is to be utilized by Business Analysts within our client companies
-  and organizations.
----
-
 # Knowledge Portal User Guide
 
 ## Introduction

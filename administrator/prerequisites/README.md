@@ -1,7 +1,3 @@
----
-description: The accounts and technologies required to utilize Maana.
----
-
 # Installation and Setup
 
 ## Prerequisites

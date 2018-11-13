@@ -1,77 +1,70 @@
-Text Extractor 
-========
+# Text Extractor
 
-The Maana "Text Extractor" Knowledge Service is able to extract textual information from various file formats (see below) and to convert files to XHTML.
+## Text Extractor
 
-Assumptions
-===========
+The Maana "Text Extractor" Knowledge Service is able to extract textual information from various file formats \(see below\) and to convert files to XHTML.
 
-1.  Files are not locked or encrypted.
-2.  No embedded objects, such as macros, shall be extracted.
+## Assumptions
 
-Requirements
-============
+1. Files are not locked or encrypted.
+2. No embedded objects, such as macros, shall be extracted.
 
-Operational
------------
+## Requirements
 
-*   Subscribes to fileAdded events to automatically process supported k:File instances to:
-    *   create an instance of Kind Document
-    *   with extracted text
-    *   link k:File instance via HasKind relation to k:Document
-    *   (this is essentially the mutation below)
-*   Queries:  
-    *   given a k:File, what is extracted text?
-*   Mutations:  
-    *   given a k:File, what is extracted and linked k:Document?
+### Operational
 
-File Types to Support
----------------------
+* Subscribes to fileAdded events to automatically process supported k:File instances to:
+  * create an instance of Kind Document
+  * with extracted text
+  * link k:File instance via HasKind relation to k:Document
+  * \(this is essentially the mutation below\)
+* Queries:  
+  * given a k:File, what is extracted text?
+* Mutations:  
+  * given a k:File, what is extracted and linked k:Document?
 
-*   PDF
-*   DOC
-*   DOCX
-*   PPT
-*   PPTX
-*   XLS
-*   XLSX
+### File Types to Support
 
-See [official Tika documentation](http://tika.apache.org/1.18/formats.html) for details on the aforementioned types.
+* PDF
+* DOC
+* DOCX
+* PPT
+* PPTX
+* XLS
+* XLSX
 
-Schema
-======
+See [official Tika documentation](http://tika.apache.org/1.18/formats.html) for details on the aforementioned types.
 
-##### [Most Up To Date Schema File](/DrillingProblems/textextractor.graphql)
+## Schema
 
+**Most Up To Date Schema File**
 
-Supported File Types
-====================
+## Supported File Types
 
-| Type/Extension        | MIME Type |
-| :--- | :---|
-| PDF/pdf     | application/pdf  |
-| Older Word Document/doc   | application/msword  |
-|   Newer Word Document/docx   |  application/vnd.openxmlformats-officedocument.wordprocessingml.document |
-|   Older PowerPoint/ppt   | application/[vnd.ms](http://vnd.ms)-powerpoint  |
-|   Newer PowerPoint/pptx  | application/vnd.openxmlformats-officedocument.presentationml.presentation  |
-|   Older Excel/xls   | application/[vnd.ms](http://vnd.ms)-excel  |
-|   Newer Excel/xlsx   |  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
+| Type/Extension | MIME Type |
+| :--- | :--- |
+| PDF/pdf | application/pdf |
+| Older Word Document/doc | application/msword |
+| Newer Word Document/docx | application/vnd.openxmlformats-officedocument.wordprocessingml.document |
+| Older PowerPoint/ppt | application/[vnd.ms](http://vnd.ms)-powerpoint |
+| Newer PowerPoint/pptx | application/vnd.openxmlformats-officedocument.presentationml.presentation |
+| Older Excel/xls | application/[vnd.ms](http://vnd.ms)-excel |
+| Newer Excel/xlsx | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
 
+## Example\(s\)
 
-Example(s)
-==========
-
-### HTTP Method: POST
+#### HTTP Method: POST
 
 Content-Type: application/json
 
-Input | Output
-:--- | :---
-Input 1 | Output 1
-Input 2 | Output 2
-Input 3 | Output 3
+| Input | Output |
+| :--- | :--- |
+| Input 1 | Output 1 |
+| Input 2 | Output 2 |
+| Input 3 | Output 3 |
 
-#### Input 1
+**Input 1**
+
 ```ruby
     # Input 1
     mutation {
@@ -94,7 +87,9 @@ Input 3 | Output 3
 
     }
 ```
-#### Output 1
+
+**Output 1**
+
 ```ruby
 # Output 1
 {  
@@ -111,13 +106,13 @@ Input 3 | Output 3
 }
 ```
 
-#### Input 2
+**Input 2**
 
 ```ruby
 # Input 2
-query {  
+query {  
 
-  extractText(    
+  extractText(    
 
     file: {
 
@@ -130,12 +125,13 @@ query {  
 
       status: 200  
 
-    }  
+    }  
 
   )
 ```
 
-#### Output 2
+**Output 2**
+
 ```ruby
 # Output 2
 }
@@ -145,14 +141,15 @@ query {  
     "extractText": "some text found in the file"  
   }  
 }
-
 ```
-#### Input 3
+
+**Input 3**
+
 ```ruby
 # Input 3
-query {  
+query {  
 
-  extractXHTML(    
+  extractXHTML(    
 
     file: {
 
@@ -165,13 +162,15 @@ query {  
 
       status: 200  
 
-    }  
+    }  
 
   )
 
 }
 ```
-#### Output 3
+
+**Output 3**
+
 ```ruby
 # Output 3
 {  
@@ -181,33 +180,30 @@ query {  
 }
 ```
 
-
-Development
------------
+### Development
 
 > Language: Scala
-
+>
 > Build: SBT
 
 Dependencies:
 
-*   Apache Tika parser API - Higher-level parsing (includes non-PDF types) and content-type auto-detection.
-*   Apache Pdfbox API - Parsing PDF.
-*   Akka API - Web service/HTTP.
-*   Sangria API - GraphQL.
-*   MAANA Q RabbitMQ Service - To be notified when there are new files to process.
-*   MAANA Q Service - addDocument (persist the extracted text) and addLink (from the file to the document).
+* Apache Tika parser API - Higher-level parsing \(includes non-PDF types\) and content-type auto-detection.
+* Apache Pdfbox API - Parsing PDF.
+* Akka API - Web service/HTTP.
+* Sangria API - GraphQL.
+* MAANA Q RabbitMQ Service - To be notified when there are new files to process.
+* MAANA Q Service - addDocument \(persist the extracted text\) and addLink \(from the file to the document\).
 
-Running outside Q
------------------
+### Running outside Q
 
-### Requirements
+#### Requirements
 
-> Git, Sbt, Java 8, Scala 2.11+
-
+> Git, Sbt, Java 8, Scala 2.11+
+>
 > Network access to Maana Q RabbitMQ and File/Document/Link services
 
-### Environment Variable(s): 
+#### Environment Variable\(s\):
 
 **If not defined, default local docker settings are used.**
 
@@ -223,7 +219,9 @@ Running outside Q
 
   RABBITMQ_PORT - usually 5672 for cluster Q (25672 for local Q - be sure to stop local rabbitmq)
 ```
-**Security-Related Variable(s) against Secure Q**
+
+**Security-Related Variable\(s\) against Secure Q**
+
 ```ruby
   REACT\_APP\_PORTAL\_AUTH\_DOMAIN  
   REACT\_APP\_PORTAL\_AUTH\_CLIENT_ID  
@@ -233,11 +231,11 @@ Running outside Q
   SAS_CREDENTIAL
 ```
 
-### Local Execution
+#### Local Execution
 
 ```ruby
 git clone [ssh://git@bitbucket.corp.maana.io:7999/h4/h4.git](ssh://git@bitbucket.corp.maana.io:7999/h4/h4.git)
 
 Follow instructions on local H4 service build/execution
-
 ```
+

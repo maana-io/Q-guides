@@ -1,7 +1,3 @@
----
-description: The technology that underpins almost all interactions with the Maana platform.
----
-
 # GraphQL
 
 ### GraphQL DataQuery Language

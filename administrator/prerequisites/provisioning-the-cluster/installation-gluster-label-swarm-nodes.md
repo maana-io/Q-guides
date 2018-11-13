@@ -1,7 +1,3 @@
----
-description: Gluster /Label Swarm Nodes with Roles
----
-
 # Installation, Gluster/Label Swarm Nodes
 
 ### Install Gluster/Label Swarm Nodes with Roles

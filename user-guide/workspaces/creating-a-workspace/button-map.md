@@ -1,9 +1,3 @@
----
-description: >-
-  A map displaying the icon location and names/functionality for various
-  activities available for the Maana KG User.
----
-
 # Button Map
 
 ### Workspace Buttons <a id="workspace-buttons"></a>

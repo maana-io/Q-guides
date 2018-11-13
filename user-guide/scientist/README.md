@@ -1,7 +1,3 @@
----
-description: Basic information about our  application.
----
-
 # Maana 101
 
 ## 

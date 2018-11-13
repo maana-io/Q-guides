@@ -1,7 +1,3 @@
----
-description: This page discusses the GraphQL Schema Language
----
-
 # GraphQL Schema Language
 
 ### GraphQL Schema Language - Type System

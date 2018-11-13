@@ -1,7 +1,3 @@
----
-description: Home Tab
----
-
 # The Maana Personal Dashboard
 
 ## MAANA Personal Dashboard \(Home Tab\)

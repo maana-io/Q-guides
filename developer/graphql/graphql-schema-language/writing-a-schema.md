@@ -1,9 +1,3 @@
----
-description: >-
-  Schema for Mutation Types, Query Anatomy, Directives, Named and Inline
-  Fragments
----
-
 # Writing a Schema
 
 ### GraphQL Schema Language - Writing a Schema

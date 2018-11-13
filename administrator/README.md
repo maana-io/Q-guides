@@ -1,7 +1,3 @@
----
-description: Administrators Guide
----
-
 # Administrator Guide
 
 ## Prerequisites

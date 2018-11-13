@@ -1,7 +1,3 @@
----
-description: 'Azure Docker Container, Configuration, Firewall rules,'
----
-
 # Provisioning the Cluster
 
 ### Azure Docker Container 

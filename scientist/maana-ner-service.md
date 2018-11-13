@@ -1,35 +1,34 @@
+# Named Entity Recognition
+
 ## Named Entity Recognition
 
 Maana Named Entity Recognition service detects entities in text data using:
 
-Stochastic (CRF-classifier) and
-Deterministic (Token-Regex) methods. File: /maana-ner-service/src/main/resources/Regex.rules
+Stochastic \(CRF-classifier\) and Deterministic \(Token-Regex\) methods. File: /maana-ner-service/src/main/resources/Regex.rules
 
-n  | Entity               | CRF | Regex |
- ---|----------------------|-----|-------|
- 01 | DateKind             |  +  |   +   |
- 02 | TimeKind             |  +  |   +   |
- 03 | Person               |  +  |   -   |
- 04 | Location             |  +  |   -   |
- 05 | Organization         |  +  |   -   |
- 06 | Currency             |  +  |   -   |
- 07 | Number               |  +  |   -   |
- 08 | Percentage           |  +  |   -   |
- 09 | URL                  |  -  |   +   |
- 10 | Email                |  -  |   +   |
- 11 | PhoneNumber          |  -  |   +   |
- 12 | SocialSecurityNumber |  -  |   +   |
- 13 | IpAddress            |  -  |   +   |
- 14 | WebLink              |  -  |   +   |
- 15 | GeoCoordinate        |  -  |   +   |
-
+| n | Entity | CRF | Regex |
+| :--- | :--- | :--- | :--- |
+| 01 | DateKind | + | + |
+| 02 | TimeKind | + | + |
+| 03 | Person | + | - |
+| 04 | Location | + | - |
+| 05 | Organization | + | - |
+| 06 | Currency | + | - |
+| 07 | Number | + | - |
+| 08 | Percentage | + | - |
+| 09 | URL | - | + |
+| 10 | Email | - | + |
+| 11 | PhoneNumber | - | + |
+| 12 | SocialSecurityNumber | - | + |
+| 13 | IpAddress | - | + |
+| 14 | WebLink | - | + |
+| 15 | GeoCoordinate | - | + |
 
 ## Assumptions
 
-
-
 ## Schema
-```
+
+```text
 type Info {
   id: ID!
   name: String!
@@ -182,15 +181,16 @@ type Subscription {
 ## Example
 
 ### Query
+
 To extract entities from the following text:
 
-"Reaming down from 6000ft to 8000ft to clear stuck pipe. John, please get that article on www.linkedin.com or https://google.com or 192.67.23.222 from file bla123bla.doc and itisme.jpg to me by 5:00PM on Jul 4th 2018 or 4:00 am on 01/09/12 would be ideal, actually. If you have any questions about \"Maana\" or 'Google' office at \"New York\" you can reach my associate at (012)-345-6789 or (230) 241 2422 or +1(345)876-7554 or associative@mail.com or abracadabra123@maana.io>. Send me $5,987.56 or £4,123.14 or € 100 by PayPal. My SSN is 456-23-0965 My coordinates are: 47.617640, -122.191905 or 47°37'03.5\"N 122°11'30.9\"W"
+"Reaming down from 6000ft to 8000ft to clear stuck pipe. John, please get that article on www.linkedin.com or [https://google.com](https://google.com) or 192.67.23.222 from file bla123bla.doc and itisme.jpg to me by 5:00PM on Jul 4th 2018 or 4:00 am on 01/09/12 would be ideal, actually. If you have any questions about \"Maana\" or 'Google' office at \"New York\" you can reach my associate at \(012\)-345-6789 or \(230\) 241 2422 or +1\(345\)876-7554 or associative@mail.com or abracadabra123@maana.io&gt;. Send me $5,987.56 or £4,123.14 or € 100 by PayPal. My SSN is 456-23-0965 My coordinates are: 47.617640, -122.191905 or 47°37'03.5\"N 122°11'30.9\"W"
 
-you can go to http://localhost:9999, which brings up the graphiql interface.
+you can go to [http://localhost:9999](http://localhost:9999), which brings up the graphiql interface.
 
 An example query to run with default model would be this:
 
- ```
+```text
  {
    extract(sources: ["Reaming down from 6000ft to 8000ft to clear stuck pipe. John, please get that article on www.linkedin.com or https://google.com or 192.67.23.222 from file bla123bla.doc and itisme.jpg to me by 5:00PM on Jul 4th 2018 or 4:00 am on 01/09/12 would be ideal, actually. If you have any questions about \"Maana\" or 'Google' office at \"New York\" you can reach my associate at (012)-345-6789 or (230) 241 2422 or +1(345)876-7554 or associative@mail.com or &lt;abracadabra123@maana.io>. Send me $5,987.56 or £4,123.14 or € 100 by PayPal. My SSN is 456-23-0965 My coordinates are: 47.617640, -122.191905 or 47°37'03.5\"N 122°11'30.9\"W"]) {
      fromSpan
@@ -199,10 +199,11 @@ An example query to run with default model would be this:
      surfaceForm
    }
  }
- ```
-
- and produces the output
 ```
+
+and produces the output
+
+```text
  {
   "data": {
     "extract": [

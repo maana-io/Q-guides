@@ -1,7 +1,3 @@
----
-description: Discusses the platform at a more technical and detailed level.
----
-
 # The Maana Platform
 
 ## 

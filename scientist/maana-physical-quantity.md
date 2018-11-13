@@ -1,14 +1,12 @@
+# Physical Quantity
 
+## Physical Quantity
 
-Physical Quantity
-========
+This service is used for extracting physical quantities \( a.k.a. measured quantities\) from text, and performing dimensionally safe arithmetic, unit conversions and comparisons with them. This service uses a proprietery symbolic computing engine built on top of Stanford CoreNLP's named entity recognition library \([https://nlp.stanford.edu/software/](https://nlp.stanford.edu/software/)\).
 
-This service is used for extracting physical quantities ( a.k.a. measured quantities) from text, and performing dimensionally safe arithmetic, unit conversions and comparisons with them.   This service uses a proprietery symbolic computing engine built on top of Stanford CoreNLP's named entity recognition library (https://nlp.stanford.edu/software/).
+This query extracts pressure measurements from the sample sentence, converts them into head \(in feet of sea water\) and checks to see if the result is greater than 100 feet:
 
-This query extracts pressure measurements from the sample sentence, converts them into head (in feet of sea water) and
-checks to see if the result is greater than 100 feet:
-
-```
+```text
 {
   extract(sources: ["The back-pressure should not exceed 3 atm."]) {
     entity {
@@ -22,20 +20,20 @@ checks to see if the result is greater than 100 feet:
   }
 }
 ```
-Queries of this kind facilitate equational reasoning with real world measurements, and can be used to augment the engineering knowledge models.  Specifically, this service facilitates equational and graph based reasoning about physical quantities, units of measure, physical dimensions and systems of units.
 
-Assumptions
-===========
+Queries of this kind facilitate equational reasoning with real world measurements, and can be used to augment the engineering knowledge models. Specifically, this service facilitates equational and graph based reasoning about physical quantities, units of measure, physical dimensions and systems of units.
+
+## Assumptions
 
 1. Entity mentions follow standard notational conventions for products, quotients and exponentials of units of measure
 2. Although aliases are allowed, no unit of measure that is not a product, power or quotient can consist of more than one token.  For example: "1 Astronomical unit" would be invalid, but "1 AU" would be acceptable
 
-Warnings
-==========
+## Warnings
+
 1. The service uses a constructive pattern matching algorithm to parse physical quantities from text.    Acronyms, abreviations and part numbers can easily be misidentified as units of measure.    Some data cleansing may be required to get optimal performance.
 
-Schema
-==========
+## Schema
+
 ```ruby
 # A reference to a system of units.   You must provide at least one of the arguments: id or name.
 input SystemOfUnitsRef{
@@ -347,226 +345,233 @@ type Query{
  }
 
 schema { query: Query }
-
 ```
-Examples
-==========
 
-## Physical Quantities
+## Examples
+
+### Physical Quantities
+
 | Example | How do I get the normalized surface form of a physical quantity? |
-| --- | --- |
+| :--- | :--- |
 | Info | The physical quantity service automatically normalizes the surface form of physical quantities. Use the name property of the physical quantity type to get the normalized surface form of a physical quantity. The example below demonstrates how to get the normalized surface form of a physical quantity parsed from text. |
-| Query | query { parse(source:"ten psi"){ name }} |
+| Query | query { parse\(source:"ten psi"\){ name }} |
 | Response | { "data": { "parse": { "name": "10.0 lb/in²" }}} |
 
-| Example | How do I get the magnitude (numeric value) of a physical quantity? |
-| --- | --- |
+| Example | How do I get the magnitude \(numeric value\) of a physical quantity? |
+| :--- | :--- |
 | Info | Use the magnitude property of the physical quantity type to get the numeric value of a physical quantity. The example below demonstrates how to get the numeric value of a physical quantity parsed from text. |
-| Query | query { parse(source:"ten psi"){ magnitude }} |
+| Query | query { parse\(source:"ten psi"\){ magnitude }} |
 | Response | { "data": { "parse": { "magnitude": 10 }}} |
 
 | Example | How do I get the unit of measure of a physical quantity? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the unitOfMeasure property of the physical quantity type to get the unit of measure of a physical quantity. The example below demonstrates how to get the unit of measure of a physical quantity parsed from text. |
-| Query | query { parse(source:"ten psi"){ unitOfMeasure{ name }}} |
+| Query | query { parse\(source:"ten psi"\){ unitOfMeasure{ name }}} |
 | Response | { "data": { "parse": { "unitOfMeasure": { "name": "lb/in²" }}}} |
 
-## Unit Of Measure
+### Unit Of Measure
+
 | Example | How can I see all the available units of measure? |
-| --- | --- |
+| :--- | :--- |
 | Info | Since the system can derive an infinite number of units of measure using multiplication, division and exponentiation, It is NOT possible to see ALL available units of measure. Instead, we can use the unitsOfMeasure query to find all the units of measure that have been explicitly defined. The physical quantity service comes out of the box with explicit definitions for the commonly used units of measure for both the MKS and Imperial systems of units. |
 | Query | { query { unitsOfMeasure { name }}} |
-| Result | { "data": { "unitsOfMeasure": [{"name": "C"}, {"name": "m"}, { "name": "km"}, { "name": "D" }, .. AND MANY MORE ] }} |
+| Result | { "data": { "unitsOfMeasure": \[{"name": "C"}, {"name": "m"}, { "name": "km"}, { "name": "D" }, .. AND MANY MORE \] }} |
 
 | Example | How can I see all the available units of measure for a particular physical dimension? |
-| --- | --- |
+| :--- | :--- |
 | Info | Since the system can derive an infinite number of units of measure using multiplication, division and exponentiation, It is NOT possible to see ALL available units of measure. Instead, we can use the optional dimensionRef argument for the unitsOfMeasure query to find all the units of measure that have been explicitly defined for the given physical dimension. If no dimensionRef is provided, then all the explicitly defined units of measure are returned. The example below finds all the explicitly defined units of measure having a physical dimension of "LENGTH". |
-| Query | { unitsOfMeasure(dimensionRef: {name: "LENGTH"}) { name }} |
-| Response | { "data": { "unitsOfMeasure": [ { "name": "m"}, { "name": "km"}, { "name": "ft"}, { "name": "in"}, { "name": "mi"}, { "name": "yd"}]}} |
+| Query | { unitsOfMeasure\(dimensionRef: {name: "LENGTH"}\) { name }} |
+| Response | { "data": { "unitsOfMeasure": \[ { "name": "m"}, { "name": "km"}, { "name": "ft"}, { "name": "in"}, { "name": "mi"}, { "name": "yd"}\]}} |
 
 | Example | How do I get the normalized surface form of a unit of measure? |
-| --- | --- |
+| :--- | :--- |
 | Info | The physical quantity service automatically normalizes the surface form of units of measure. Use the name property of the UnitOfMeasure type to get the normalized surface form. The example below demonstrates how to get the normalized surface form of a unit of measure from a physical quantity parsed from text. |
-| Query | { parse(source: "9.8 kilogram * meter / second squared") {  unitOfMeasure {  name}}} |
+| Query | { parse\(source: "9.8 kilogram \* meter / second squared"\) {  unitOfMeasure {  name}}} |
 | Response | { "data": { "parse": { "unitOfMeasure": { "name": "kg·m/s²"}}}} |
 
 | Example | How do I get the aliases for a unit of measure? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the aliases property of the UnitOfMeasure type to get the aliases for the unit of measure. Any of the returned aliases could be used interchangeably with the preferred denotation. The example below demonstrates how to get the aliases for a unit of measure from a physical quantity parsed from text. |
-| Query | { parse(source: "55 mi/hr") {  unitOfMeasure {  aliases}}} |
-| Response | { "data": { "parse": { "unitOfMeasure": { "aliases": [ "mph"],}}}} |
+| Query | { parse\(source: "55 mi/hr"\) {  unitOfMeasure {  aliases}}} |
+| Response | { "data": { "parse": { "unitOfMeasure": { "aliases": \[ "mph"\],}}}} |
 
 | Example | How do I get the physical dimension of a unit of measure? |
-| --- | --- |
-| Info  | Use the dimension property of the UnitOfMeasure type to get its physical dimension. The example below demonstrates how to get the physical dimension form of a unit of measure from a physical quantity parsed from text. |
-| Query | { parse(source: "9.8 kilogram * meter / second squared") {  unitOfMeasure {  name, dimension {  name}}}} |
+| :--- | :--- |
+| Info | Use the dimension property of the UnitOfMeasure type to get its physical dimension. The example below demonstrates how to get the physical dimension form of a unit of measure from a physical quantity parsed from text. |
+| Query | { parse\(source: "9.8 kilogram \* meter / second squared"\) {  unitOfMeasure {  name, dimension {  name}}}} |
 | Response | { "data": { "parse": { "unitOfMeasure": { "dimension": { "name": "FORCE"}}}}} |
 
+### Unit Of Measure Prefix
 
-## Unit Of Measure Prefix
 | Example | How can I see all the available unit of measure prefixes? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the unitOfMeasurePrefixes query to find all the unit of measure prefixes. The physical quantity service comes out of the box with the metric system prefixes. |
 | Query | { unitOfMeasurePrefixes{  name}} |
-| Response | { "data": { "unitOfMeasurePrefixes": [ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE]}} |
+| Response | { "data": { "unitOfMeasurePrefixes": \[ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE\]}} |
 
 | Example | How do I get the preferred symbol for a unit of measure prefix? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the name property of the UnitOfMeasurePrefix to get the preferred symbol for the prefix. The example below gets the preferred symbol for all the unit of measure prefixes in the system: |
 | Query | { unitOfMeasurePrefixes{  name}} |
-| Response | { "data": { "unitOfMeasurePrefixes": [ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE]}} |
+| Response | { "data": { "unitOfMeasurePrefixes": \[ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE\]}} |
 
 | Example | How do I get the aliases for a unit of measure prefix? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the aliases property of the UnitOfMeasurePrefix to get all the aliases for the unit of measure prefix. The example below gets the aliases for all the unit of measure prefixes in the system: |
 | Query | { unitOfMeasurePrefixes{  aliases}} |
-| Response | { "data": { "unitOfMeasurePrefixes": [ { "aliases": [ "f", "fempto"]}, { "aliases": [ "p", "pico"]}, { "aliases": [ "n", "nano"]}, { "aliases": [ "μ", "u", "micro"]}, ... AND MANY MORE]}} |
+| Response | { "data": { "unitOfMeasurePrefixes": \[ { "aliases": \[ "f", "fempto"\]}, { "aliases": \[ "p", "pico"\]}, { "aliases": \[ "n", "nano"\]}, { "aliases": \[ "μ", "u", "micro"\]}, ... AND MANY MORE\]}} |
 
 | Example | How do I get the scaling factor for a unit of measure prefix? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the multiplier property of the UnitOfMeasurePrefix to get all the scaling factor for the unit of measure prefix. The example below gets the multipliers for all the unit of measure prefixes in the system: |
 | Query | { unitOfMeasurePrefixes{  multiplier}} |
-| Response | { "data": { "unitOfMeasurePrefixes": [ { "multiplier": 1e-15}, { "multiplier": 1e-12}, { "multiplier": 1e-9}, { "multiplier": 0.000001},  ... AND MANY MORE]}}|
+| Response | { "data": { "unitOfMeasurePrefixes": \[ { "multiplier": 1e-15}, { "multiplier": 1e-12}, { "multiplier": 1e-9}, { "multiplier": 0.000001},  ... AND MANY MORE\]}} |
 
-## Physical Dimensions
+### Physical Dimensions
+
 | Example | How can I see all the available physical dimensions? |
-| --- | --- |
+| :--- | :--- |
 | Info | Since the system can derive an infinite number of physical dimensions using multiplication, division and exponentiation, It is NOT possible to see ALL available physical dimensions. Instead, we can use the physicalDimensions query to find all the physical dimensions that have been explicitly defined. The physical quantity service comes out of the box with over 60 of the most commonly occurring physical dimensions in engineering and scientific literature. |
 | Query | { query { physicalDimensions {  name}}} |
-| Response | { "data": { "physicalDimensions": [ { "name": "VELOCITY", "aliases": [], "formula": "L¹T⁻¹"}, { "name": "ELECTRICAL_RESISTANCE", "aliases": [], "formula": "L²M¹T⁻³J⁻²"}, { "name": "ABASEMENT", "aliases": [], "formula": "L¹T¹"}, { "name": "MOMENTUM", "aliases": [], "formula": "L¹M¹T⁻¹" ... AND MANY  MORE},]}} |
+| Response | { "data": { "physicalDimensions": \[ { "name": "VELOCITY", "aliases": \[\], "formula": "L¹T⁻¹"}, { "name": "ELECTRICAL\_RESISTANCE", "aliases": \[\], "formula": "L²M¹T⁻³J⁻²"}, { "name": "ABASEMENT", "aliases": \[\], "formula": "L¹T¹"}, { "name": "MOMENTUM", "aliases": \[\], "formula": "L¹M¹T⁻¹" ... AND MANY  MORE},\]}} |
 
 | Example | How do I look up a physicalDimension by its name, formula or alias? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the physicalDimension query to search for a physical dimension based on its name, formula or alias. The example below finds a physical dimension by name: |
-| Query | { physicalDimension(dimensionRef:{name:"ELECTRICAL_CURRENT"}){  formula}} |
+| Query | { physicalDimension\(dimensionRef:{name:"ELECTRICAL\_CURRENT"}\){  formula}} |
 | Response | { "data": { "physicalDimension": { "formula": "J¹"}}} |
 
 | Example | How do I get the preferred name of a physical dimension? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the name field of the PhysicalDimension type to get the preferred name for a physical dimension. The example below gets the preferred name of all the explicitly defined physical dimensions: |
-| Query | { query { physicalDimension(dimensionRef: {  name}}} |
-| Response | { "data": { "physicalDimensions": [ { "name": "VELOCITY"}, { "name": "ELECTRICAL_RESISTANCE"}, { "name": "ABASEMENT"}, { "name": "MOMENTUM"}, ... AND MANY MORE]}} |
+| Query | { query { physicalDimension\(dimensionRef: {  name}}} |
+| Response | { "data": { "physicalDimensions": \[ { "name": "VELOCITY"}, { "name": "ELECTRICAL\_RESISTANCE"}, { "name": "ABASEMENT"}, { "name": "MOMENTUM"}, ... AND MANY MORE\]}} |
 
 | Example | How can I get the aliases for a physical dimension? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the name field of the PhysicalDimension type to get the preferred name for a physical dimension. The example below gets the aliases of all the explicitly defined physical dimensions having the formula "L²M¹T⁻²": |
-| Query | { physicalDimension(dimensionRef:{formula:"L²M¹T⁻²"}){  aliases}} |
-| Response | { "data": { "physicalDimension": { "aliases": [ "ENERGY" "WORK", "TORQUE"],}}} |
+| Query | { physicalDimension\(dimensionRef:{formula:"L²M¹T⁻²"}\){  aliases}} |
+| Response | { "data": { "physicalDimension": { "aliases": \[ "ENERGY" "WORK", "TORQUE"\],}}} |
 
 | Example | How can I get the formula for a physical dimension? |
-| --- | --- |
-| Info | Use the name formula of the PhysicalDimension type to get the formula for a physical dimension. The example below gets the formula of the explicitly defined physical dimension of "MOLAR_HEAT_CAPACITY": |
-| Query | { physicalDimension(dimensionRef:{name:"MOLAR_HEAT_CAPACITY"}){  formula}} |
+| :--- | :--- |
+| Info | Use the name formula of the PhysicalDimension type to get the formula for a physical dimension. The example below gets the formula of the explicitly defined physical dimension of "MOLAR\_HEAT\_CAPACITY": |
+| Query | { physicalDimension\(dimensionRef:{name:"MOLAR\_HEAT\_CAPACITY"}\){  formula}} |
 | Response | { "data": { "physicalDimension": { "formula": "L²M¹T⁻²ϴ⁻¹N⁻¹"}}} |
 
-## Systems Of Units
+### Systems Of Units
 
 | Example | How can I get a list of all the systems of units? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the systemsOfUnits query to get a list of all the systems of units. For example the query below gets a list of all the names and descriptions of all the systems of units. |
 | Query | query {  systemsOfUnits{  name, description}} |
-| Response | { "data": { "systemsOfUnits": [ { "name": "mks", "description": "mks (meter-kilogram-second) system"}, { "name": "Imperial", "description": "Imperial (American) Unit System"}]}} |
+| Response | { "data": { "systemsOfUnits": \[ { "name": "mks", "description": "mks \(meter-kilogram-second\) system"}, { "name": "Imperial", "description": "Imperial \(American\) Unit System"}\]}} |
 
 | Example | How can I get a list of all the systems of units that contain a specific unit of measure? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the systemsOfUnits field of the UnitOfMeasure type to get all the systems of units that contain that unit of measure. For example, the query below finds the unit of measure "second" and returns the names of all the systems of units in which it occurs: |
-| Query | { unitOfMeasure(unitRef:{alias:"second"}){  systemsOfUnits{  name}}} |
-| Response | { "data": { "unitOfMeasure": { "systemsOfUnits": [ { "name": "mks"}, { "name": "Imperial"}]}}} |
+| Query | { unitOfMeasure\(unitRef:{alias:"second"}\){  systemsOfUnits{  name}}} |
+| Response | { "data": { "unitOfMeasure": { "systemsOfUnits": \[ { "name": "mks"}, { "name": "Imperial"}\]}}} |
 
 | Example | How can I get a list of all the systems of units that contain a specific unit of measure prefix? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the systemsOfUnits field of the UnitOfMeasurePrefix type to get all the systems of units that contain that unit of measure prefix. For example, the query below finds the unit of measure prefix "kilo" and returns the names of all the systems of units in which it occurs: |
-| Query | { unitOfMeasurePrefix(prefixRef:{alias:"kilo"}){  systemsOfUnits{  name}}} |
-| Response | { "data": { "unitOfMeasurePrefix": { "systemsOfUnits": [ { "name": "mks"}]}}} |
+| Query | { unitOfMeasurePrefix\(prefixRef:{alias:"kilo"}\){  systemsOfUnits{  name}}} |
+| Response | { "data": { "unitOfMeasurePrefix": { "systemsOfUnits": \[ { "name": "mks"}\]}}} |
 
 | Example | How can I see all the units of measure in a system of units? |
-| --- | --- |
+| :--- | :--- |
 | Info | Since the system can derive an infinite number of units of measure using multiplication, division and exponentiation, It is NOT possible to see ALL the units of measure in a system of units. Instead, you can use the units field of the SystemOfUnits type to get the list of explicitly defined units of measure that occur in that system of units. The optional "dimensionRef" parameter can be used to filter the results to those that have a specific physical dimension. The example below demonstrates how to find all the units of measure in the Imperial unit system that have dimension of LENGTH. |
-| Query | query {  systemOfUnits(systemRef:{name:"Imperial"}){  units(dimensionRef:{name:"LENGTH"}){  name}}} |
-| Response | { "data": { "systemOfUnits": { "units": [ { "name": "ft"}, { "name": "in"}, { "name": "mi"}, { "name": "yd"}]}}} |
+| Query | query {  systemOfUnits\(systemRef:{name:"Imperial"}\){  units\(dimensionRef:{name:"LENGTH"}\){  name}}} |
+| Response | { "data": { "systemOfUnits": { "units": \[ { "name": "ft"}, { "name": "in"}, { "name": "mi"}, { "name": "yd"}\]}}} |
 
 | Example | How can I see all the unit of measure prefixes in a system of units? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the prefixes field of the SystemOfUnits type to get the list of unit of measure prefixes in that system of units. The example below demonstrates how to find all the unit of measure prefixes in the mks unit system: |
-| Query | query {  systemOfUnits(systemRef:{name:"mks"}){  prefixes{  name}}} |
-| Response | { "data": { "systemOfUnits": { "prefixes": [ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE]}}} |
+| Query | query {  systemOfUnits\(systemRef:{name:"mks"}\){  prefixes{  name}}} |
+| Response | { "data": { "systemOfUnits": { "prefixes": \[ { "name": "f"}, { "name": "p"}, { "name": "n"}, { "name": "μ"}, ... AND MANY MORE\]}}} |
 
-## Parsing
+### Parsing
+
 | Example | How do I convert that string to a physical quantity? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the parse query to convert a string into a physical quantity. The parse query can be used when you have a single string that is a surface form of an entity mention -- the parse query will throw an error if the provided string is not a surface form for some physical quantity. |
-| Query | query { parse(source:"400 psi"){  name}} |
+| Query | query { parse\(source:"400 psi"\){  name}} |
 | Response | { "data": { "parse": { "name": "400.0 lb/in²"}}} |
 
 | Example | How do I convert the string to a physical quantity only if its unit of measure is in a particular system of units? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the optional systemRefs parameter to specify either the id or name of the required systems of units. If no systemRefs parameter is provided, the parser uses all available systemsOfUnits. |
-| Query | query { parse(source:"400 psi",systemRefs:[{name:"Imperial"}]){  name}} |
+| Query | query { parse\(source:"400 psi",systemRefs:\[{name:"Imperial"}\]\){  name}} |
 | Response | { "data": { "parse": { "name": "400.0 lb/in²"}}} |
 
 | Example | How do I convert the string to a physical quantity only if it has a specific physical dimension? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the optional dimensionRef parameter to specify either the id, name or formula of the required physical dimension. If no dimensionRef parameter is provided, the parser admits all physical dimensions. |
-| Query | query { parse(source:"400 psi",dimensionRef:{name:"PRESSURE"}){  name}} |
+| Query | query { parse\(source:"400 psi",dimensionRef:{name:"PRESSURE"}\){  name}} |
 | Response | { "data": { "parse": { "name": "400.0 lb/in²"}}} |
 
-## Extraction
+### Extraction
+
 | Example | You have a list of strings, each which may contain zero or many physical quantities. How do you extract all the physical quantities from the source text? |
-| --- | --- |
-| Info | Use the extract query to get all the entity mentions from the text. The extract method can be used to find entity mentions in a list of string literals, or the field of a kind. The extractor will find all the physical quantity mentions in each string (or instance of a field) and return a list of the results. |
-| Query | { extract(sources: [ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."]) {  entity {  name}}} |
-| Result | { "data": { "extract": [ { "entity": { "name": "350.0 mi/hr"}}, { "entity": { "name": "3000 m"}}, { "entity": { "name": "7500.0 ft"}}]}} |
+| :--- | :--- |
+| Info | Use the extract query to get all the entity mentions from the text. The extract method can be used to find entity mentions in a list of string literals, or the field of a kind. The extractor will find all the physical quantity mentions in each string \(or instance of a field\) and return a list of the results. |
+| Query | { extract\(sources: \[ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."\]\) {  entity {  name}}} |
+| Result | { "data": { "extract": \[ { "entity": { "name": "350.0 mi/hr"}}, { "entity": { "name": "3000 m"}}, { "entity": { "name": "7500.0 ft"}}\]}} |
 
 | Example | You have a list of strings, each which may contain zero or more entity mentions. How do extract all the physical quantities from the source text only if their unit of measure is in the Imperial unit system? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the optional systemRefs parameter to specify either the id or name of the required systems of units. If no systemRefs parameter is provided, the extractor uses all available systemsOfUnits. |
-| Query | { extract(sources: [ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."], systemRefs:[{name:"Imperial"}]) {  entity {  name}}} |
-| Response | { "data": { "extract": [ { "entity": { "name": "350.0 mi/hr"}}, { "entity": { "name": "7500.0 ft"}}]}} |
+| Query | { extract\(sources: \[ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."\], systemRefs:\[{name:"Imperial"}\]\) {  entity {  name}}} |
+| Response | { "data": { "extract": \[ { "entity": { "name": "350.0 mi/hr"}}, { "entity": { "name": "7500.0 ft"}}\]}} |
 
 | Example | You have a list of strings, each which may contain zero or more entity mentions. How do extract all the physical quantities from the source text only if they have dimensions of length? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the optional dimensionRef parameter to specify either the id, name or formula of the required physical dimension. If no dimensionRef parameter is provided, the extractor admits all physical dimensions. |
-| Query | { extract(sources: [ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."], dimensionRef:{name:"LENGTH"}) {  entity {  name}}} |
-| Response | { "data": { "extract": [ { "entity": { "name": "3000.0 m"}}, { "entity": { "name": "7500.0 ft"}}]}} |
+| Query | { extract\(sources: \[ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."\], dimensionRef:{name:"LENGTH"}\) {  entity {  name}}} |
+| Response | { "data": { "extract": \[ { "entity": { "name": "3000.0 m"}}, { "entity": { "name": "7500.0 ft"}}\]}} |
 
 | Example | You have a list of strings, each which may contain zero or more entity mentions. After extracting the entity mentions, how do you know where they occur in the source text? |
-| --- | --- |
-| Info | The fromKind, fromField, fromInstance, and fromString fields of the EntityMention type provide locators to the source text. The fromOffset field of the entity EntityMention type provides the distance from the start of the string (in characters) to the start of the entity mention. The fromSpan field of the EntityMention type provides the length of the entity mention (in characters). |
-| Query | { extract(sources: [ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."], dimensionRef:{name:"LENGTH"}) {  entity {  name} fromText, fromSpan, fromOffset}} |
-| Response | { "data": { "extract": [ { "entity": { "name": "3000.0 m"}, "fromText": "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "fromSpan": "12", "fromOffset": "59"}, { "entity": { "name": "7500.0 ft"}, "fromText": "The minimum runway length is 7500 feet.", "fromSpan": "10", "fromOffset": "29"}]}} |
+| :--- | :--- |
+| Info | The fromKind, fromField, fromInstance, and fromString fields of the EntityMention type provide locators to the source text. The fromOffset field of the entity EntityMention type provides the distance from the start of the string \(in characters\) to the start of the entity mention. The fromSpan field of the EntityMention type provides the length of the entity mention \(in characters\). |
+| Query | { extract\(sources: \[ "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "The minimum runway length is 7500 feet."\], dimensionRef:{name:"LENGTH"}\) {  entity {  name} fromText, fromSpan, fromOffset}} |
+| Response | { "data": { "extract": \[ { "entity": { "name": "3000.0 m"}, "fromText": "the airspeed of the plane was 350 mph as it passed through 3000 meters.", "fromSpan": "12", "fromOffset": "59"}, { "entity": { "name": "7500.0 ft"}, "fromText": "The minimum runway length is 7500 feet.", "fromSpan": "10", "fromOffset": "29"}\]}} |
 
-# Conversions
+## Conversions
+
 | Example | How do I convert a physical quantity to a different unit of measure? |
-| --- | --- |
-| Info | You can use the "convertTo" query, "convertTo" field, or "convertTo" argument to convert a physical quantity to a specific unit of measure. The examples below show examples of how to use each method to convert a pressure from atmospheres to gauge pressure.
-| using roundTo field | query {  convertTo(input: {parseFrom: "2 atm"}, toUnitRef: {alias: "psi"}) {  add( summand: {parseFrom: "-14.69 psi"}) {  roundTo(precision: 3) {  name}}}} |
-| using convertTo field | query { parse(source: "2 atm") {  add(summand: {parseFrom: "-14.69 psi"}) {  convertTo(toUnitRef: {alias: "psi"}) {  roundTo(precision: 3) {  name}}}}} |
-| using arguments | query { add(input:{parseFrom:"2 atm"},summand:{parseFrom:"-14.69 psi"},toUnitRef:{alias:"psi"},precision:3){  name}} |
+| :--- | :--- |
+| Info | You can use the "convertTo" query, "convertTo" field, or "convertTo" argument to convert a physical quantity to a specific unit of measure. The examples below show examples of how to use each method to convert a pressure from atmospheres to gauge pressure. |
+| using roundTo field | query {  convertTo\(input: {parseFrom: "2 atm"}, toUnitRef: {alias: "psi"}\) {  add\( summand: {parseFrom: "-14.69 psi"}\) {  roundTo\(precision: 3\) {  name}}}} |
+| using convertTo field | query { parse\(source: "2 atm"\) {  add\(summand: {parseFrom: "-14.69 psi"}\) {  convertTo\(toUnitRef: {alias: "psi"}\) {  roundTo\(precision: 3\) {  name}}}}} |
+| using arguments | query { add\(input:{parseFrom:"2 atm"},summand:{parseFrom:"-14.69 psi"},toUnitRef:{alias:"psi"},precision:3\){  name}} |
 | Response | { "data": { "convertTo": { "add": { "roundTo": { "name": "14.7 lb/in²"}}}}} |
 
 | Example | How can I tell if a physical quantity can be converted to a specific unit of measure? |
-| --- | --- |
+| :--- | :--- |
 | Info | Use the canBeConverted to field of the UnitOfMeasure type to test if two units are interconvertible. The following query demonstrates how to test if a physical quantity can be converted to units of "psi' |
-| Query | query{  parse(source:"1 bar"){  unitOfMeasure{  canBeConvertedTo(toUnitRef:{name:"psi"})}}} |
-| Response | { "data": { "parse": { "unitOfMeasure": { "canBeConvertedTo": true}}}}
+| Query | query{  parse\(source:"1 bar"\){  unitOfMeasure{  canBeConvertedTo\(toUnitRef:{name:"psi"}\)}}} |
+| Response | { "data": { "parse": { "unitOfMeasure": { "canBeConvertedTo": true}}}} |
 
-## Arithmetic
-| Example | Add physical quantities with different dimensions|
-| --- | --- |
+### Arithmetic
+
+| Example | Add physical quantities with different dimensions |
+| :--- | :--- |
 | Info | The physical quantity service will perform the necessary unit conversions for you, so long as the units are dimensionally consistent |
-| Query | { sum(summands: [{parseFrom: "12 inch"}, {parseFrom: "1 foot"}, {parseFrom: "1/3 yard"}], precision: 2) {  name}} |
+| Query | { sum\(summands: \[{parseFrom: "12 inch"}, {parseFrom: "1 foot"}, {parseFrom: "1/3 yard"}\], precision: 2\) {  name}} |
 | Response | { "data": { "sum": { "name": "36.0 in"}}} |
 
 | Example | Multiplication and division |
-| --- | --- |
+| :--- | :--- |
 | Info | When you pass arguments that have different units or physical dimensions, computer algebra on units of measure and physical dimensions automatically constructs the correct unit of measure for the returned physical quantity |
-| Query | { product(factors: [{parseFrom: "12 inch"}, {parseFrom: "1 Hz"}, {parseFrom: "1/3 acre"}], precision: 2) {  name,  unitOfMeasure {  dimension {  name}}}} |
-| Response | { "data": { "product": { "name": "4.0 Hz·acre·in", "unitOfMeasure": { "dimension": { "name": "VOLUMETRIC_FLOW"}}}}} |
+| Query | { product\(factors: \[{parseFrom: "12 inch"}, {parseFrom: "1 Hz"}, {parseFrom: "1/3 acre"}\], precision: 2\) {  name,  unitOfMeasure {  dimension {  name}}}} |
+| Response | { "data": { "product": { "name": "4.0 Hz·acre·in", "unitOfMeasure": { "dimension": { "name": "VOLUMETRIC\_FLOW"}}}}} |
 
-## Size Comparisons
+### Size Comparisons
 
 | Example | Comparing size without converting units |
-| --- | --- |
-| Info | The physical quantity service will perform the necessary unit conversions for you, as long as the units are dimensionally consistent
-| Query | { extract(sources: ["1 inch","1 foot","1 yard"]) {  entity{  isGT(rhs:{parseFrom:"2 1/2 feet"}), isGTE(rhs:{parseFrom:"2.54 centimeters"}), isEqual(rhs:{parseFrom:"3 feet"}), isLT(rhs:{parseFrom:"0.5 meters"}), isLTE(rhs:{parseFrom:"1/5280 mile"})}}} |
-| Response | { "data": { "extract": [ { "entity": { "isGT": false, "isGTE": true, "isEqual": false, "isLT": true, "isLTE": true}}, { "entity": { "isGT": false, "isGTE": true, "isEqual": false, "isLT": true, "isLTE": true}}, { "entity": { "isGT": true, "isGTE": true, "isEqual": true, "isLT": false, "isLTE": false}}]}} |
+| :--- | :--- |
+| Info | The physical quantity service will perform the necessary unit conversions for you, as long as the units are dimensionally consistent |
+| Query | { extract\(sources: \["1 inch","1 foot","1 yard"\]\) {  entity{  isGT\(rhs:{parseFrom:"2 1/2 feet"}\), isGTE\(rhs:{parseFrom:"2.54 centimeters"}\), isEqual\(rhs:{parseFrom:"3 feet"}\), isLT\(rhs:{parseFrom:"0.5 meters"}\), isLTE\(rhs:{parseFrom:"1/5280 mile"}\)}}} |
+| Response | { "data": { "extract": \[ { "entity": { "isGT": false, "isGTE": true, "isEqual": false, "isLT": true, "isLTE": true}}, { "entity": { "isGT": false, "isGTE": true, "isEqual": false, "isLT": true, "isLTE": true}}, { "entity": { "isGT": true, "isGTE": true, "isEqual": true, "isLT": false, "isLTE": false}}\]}} |
+

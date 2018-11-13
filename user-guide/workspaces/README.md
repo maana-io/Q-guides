@@ -2,7 +2,7 @@
 
 ## Workspaces
 
-A workspace is a dedicated place within the MAANA portal where a user can build, visualize and explore their Maana Computational Knowledge Graph, or CKG.  The Maana portal home page features a tab called **Workspaces**, where the user can find:
+A workspace is a dedicated place within the MAANA portal where a user can build, visualize and explore their Maana Computational Knowledge Graph, or CKG. The Maana portal home page features a tab called **Workspaces**, where the user can find:
 
 * **My Workspaces** – This area displays the workspaces that the User has previously created.
 * **Shared Workspaces** – This area displays the workspaces that multiple users share.
@@ -12,11 +12,11 @@ A workspace is a dedicated place within the MAANA portal where a user can build,
 
 ### My Workspaces
 
-Once a workspace is created it will automatically be saved, and will appear in the **My Workspaces** area of the **Workspaces Tab**. 
+Once a workspace is created it will automatically be saved, and will appear in the **My Workspaces** area of the **Workspaces Tab**.
 
 ### Shared Workspaces
 
-A user can share their workspace _only_ with other users within the same tenant.  
+A user can share their workspace _only_ with other users within the same tenant.
 
 #### To Share a Workspace:
 
@@ -38,7 +38,7 @@ Using Workspace templates can speed up building knowledge solutions as they may 
 * Right-click on a Workspace, and select **Make Template**.
 * Select **Yes** when the confirmation message that appears.
 
-The newly created Workspace Template will appear in the Templates section. You can further share the template with other users within the same tenant by right-clicking on a template, and then selecting the **Sharing…** option.  Then select the users you wish.  This will add the users you want the template to be shared with.
+The newly created Workspace Template will appear in the Templates section. You can further share the template with other users within the same tenant by right-clicking on a template, and then selecting the **Sharing…** option. Then select the users you wish. This will add the users you want the template to be shared with.
 
 ### Creating, Renaming and Deleting a Workspace
 
@@ -59,7 +59,7 @@ A new workspace with the name **Untitled** is created.
 #### To Delete a Workspace:
 
 {% hint style="info" %}
-**Note**:  The user can only delete workspaces that they have created.
+**Note**: The user can only delete workspaces that they have created.
 {% endhint %}
 
 * Select the **Workspaces** tab at the top of the Maana portal.
@@ -68,10 +68,10 @@ A new workspace with the name **Untitled** is created.
 * Select **Yes** to confirm deletion.
 
 {% hint style="warning" %}
-**Caution**:  Deleting a Workspace may impact applications, services and users connected to it. Contact your Maana platform Administrator or Maana Customer Support to verify the impact of a deletion _prior_ deleting workspaces. The Maana platform Administrator can also delete a workspace following a request from end-user.
+**Caution**: Deleting a Workspace may impact applications, services and users connected to it. Contact your Maana platform Administrator or Maana Customer Support to verify the impact of a deletion _prior_ deleting workspaces. The Maana platform Administrator can also delete a workspace following a request from end-user.
 {% endhint %}
 
-### Opening and Closing Existing Workspaces 
+### Opening and Closing Existing Workspaces
 
 #### Opening an Existing Workspace:
 
@@ -85,9 +85,9 @@ Go to the **Workspaces** tab in the horizontal menu at the top of the screen and
 
 #### Closing an Existing Workspace:
 
-Go to the **Workspaces** tab in the horizontal menu at the top of the screen and select a workspace name in the secondary horizontal menu.  Select the minus sign to the right of the list of workspace names.
+Go to the **Workspaces** tab in the horizontal menu at the top of the screen and select a workspace name in the secondary horizontal menu. Select the minus sign to the right of the list of workspace names.
 
-### Working within a Workspace 
+### Working within a Workspace
 
 The workspace features several areas with specific functionality that enables the user to create, manage, visualize and explore Knowledge Graphs and their components.
 
@@ -113,11 +113,11 @@ The Canvas area of the screen enables the user to:
 
 ![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image008.png)
 
-#### The Context Panel 
+#### The Context Panel
 
 ![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image009.png)
 
-There are  number of Tabs on the Context Panel:
+There are number of Tabs on the Context Panel:
 
 * The Information Tab
   * Enables the user to
@@ -126,11 +126,11 @@ There are  number of Tabs on the Context Panel:
 * Relations Tab
   * Used to create relations between Kinds or entities within Kinds.
 * Text Mining Tab
-  *  Used for document classification.
+  * Used for document classification.
 * Filtering tab - ???
 * Other tab- ???
 
-#### The Inventory Panel 
+#### The Inventory Panel
 
 ![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image010.png)
 
@@ -138,13 +138,11 @@ The Inventory Panel contains an inventory of Micro Services, Files and Kinds use
 
 #### The Visualization Panel
 
-The Visualization Panel allows the user to visualize Kinds and data associated with those Kinds like Instances, Entities and Values.  Raw Data Kinds can be explored quickly using the visualization panel, as each entity detected in the data file can be filtered using a “search as you type” capability.
+The Visualization Panel allows the user to visualize Kinds and data associated with those Kinds like Instances, Entities and Values. Raw Data Kinds can be explored quickly using the visualization panel, as each entity detected in the data file can be filtered using a “search as you type” capability.
 
 ![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image011.png)
 
 The visualization panel can also be used to query a Knowledge Graph using GraphQL \(refer to example provided below\).
 
 ![](https://gitbooktrainingmaterials.blob.core.windows.net/images/image012.png)
-
-
 
