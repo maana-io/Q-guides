@@ -19,7 +19,15 @@ Once you're strong enough, save the world:
 echo 'You got to trust me on this, I saved the world'
 ```
 
+Inline math: $$\int_{-\infty}^\infty g(x) dx$$
+
+
+Block math:
+
 $$
-a = b
+\int_{-\infty}^\infty g(x) dx
 $$
 
+Or using the templating syntax:
+
+{% math %}\int_{-\infty}^\infty g(x) dx{% endblock %}
