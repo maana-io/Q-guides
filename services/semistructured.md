@@ -60,3 +60,4 @@ then the group of execution does not matter:
 $$
 jsonsToGql \circ (xsdToJsons \circ xmlToXsd) = (jsonsToGql \circ xsdToJsons) \circ xmlToXsd
 $$
+
