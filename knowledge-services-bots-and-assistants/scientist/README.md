@@ -4,5 +4,5 @@ description: >-
   graph(s)
 ---
 
-# Data Scientist Guide
+# Data Science
 
