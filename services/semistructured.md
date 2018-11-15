@@ -8,7 +8,7 @@ description: >-
 
 ## Objects and Arrows
 
-We introduce the [category](../technology-concepts-and-design/category-theory.md), **SemiStruct**, to represent collections of semi-structured formats \(e.g., JSON, XML, RDF, GraphQL\) and transformations between them \(e.g., JSON to XML, XML to GraphQL\).
+We introduce the [category](../technology/categories.md), **SemiStruct**, to represent collections of semi-structured formats \(e.g., JSON, XML, RDF, GraphQL\) and transformations between them \(e.g., JSON to XML, XML to GraphQL\).
 
 $$
 Ob(SemiStruct) : Format \\
@@ -60,4 +60,3 @@ then the group of execution does not matter:
 $$
 jsonsToGql \circ (xsdToJsons \circ xmlToXsd) = (jsonsToGql \circ xsdToJsons) \circ xmlToXsd
 $$
-
