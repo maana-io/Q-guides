@@ -1,4 +1,4 @@
-# Installation,  Docker Azure:Cloud Plugin
+# Installation, Docker Azure:Cloud Plugin
 
 ### Install the Docker Azure:Cloud Plugin
 
