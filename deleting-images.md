@@ -1,6 +1,0 @@
----
-description: test
----
-
-# Deleting Images
-
