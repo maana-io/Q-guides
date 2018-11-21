@@ -66,3 +66,4 @@ $$
 We will split our implementation between transformations that are provided via hand-written code/libraries written in a programming language \(e.g., JavaScript, Python, Scala\) and transformations which can be composed purely from other transformations. For example, there are efficient, low-level implementations of XML to JSON and JSON to GraphQL conversions. These will be supplied/exposed via a GraphQL endpoints, $$xmlToJson$$ and $$jsonToGql$$, respectively.
 
 However, there is no direct XML to GraphQL conversion. Instead, the GraphQL endpoint, $$xmlToGql$$, will be implemented as a composition of $$jsonToGql \circ xmlToJson$$.
+

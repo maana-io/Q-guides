@@ -68,4 +68,5 @@
   * [Category Theory](technology/categories.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
+* [Deleting Images](deleting-images.md)
 
