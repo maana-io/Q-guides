@@ -1,10 +1,8 @@
-# Fact Recogntion
+# Fact Recogntion Bot
 
-## Fact Recognition
+## Fact Recognition Bot
 
-This service is used for extracting relations, or facts or triples, from text. The service is based on Stanford CoreNLP's Information Extraction library \([https://nlp.stanford.edu/software/openie.html](https://nlp.stanford.edu/software/openie.html)\).
-
-This service could extract information from the phrase "Alex bought a bicycle for 50$." And store a series of triples "Alex", "bought", "bicycle" and "Alex", "bought a bicycle for", "50$". The extracted information can later be used for filling in tables or reasoning. The fact recognition service takes in a kind, a field name, and then set of patterns to perform Information Extraction.
+The fact recognition bot calls the fact recognition service and reads the input data from kinds and stores the resulting data in kinds
 
 ## Assumptions
 
@@ -18,12 +16,6 @@ This service could extract information from the phrase "Alex bought a bicycle fo
 ## Schema
 
 ```ruby
-type Info {
-  id: ID!
-  name: String!
-  description: String
-}
-
 type Query {
   # information about the service
   info: Info!
@@ -65,6 +57,13 @@ type Mutation {
   ): [ID]
 }
 
+type Info {
+  id: ID!
+  name: String!
+  description: String
+  srl: Int
+}
+
 type PatternMatchResult {
   subject: String
   predicate: String
@@ -97,6 +96,11 @@ type LinkAddedEvent {
   toInstanceId: ID
   toOffset: String
   toSpan: String
+}
+
+input CorrespondenceInput {
+  name: String!
+  value: String!
 }
 
 # A snippet of characters extracted from a string.
@@ -181,100 +185,5 @@ type Gmap {
 
 ## Example\(s\)
 
-### HTTP Method: POST
-
-Content-Type: application/json
-
-#### Input to extractTriples
-
-```ruby
-query {
-    extractTriples(text: "Alex bought a bike") {
-        predicatePhrase {
-            value
-        }
-        subjectPhrase {
-            value
-        }
-        objectPhrase{
-            value
-        }
-    }
-}
-```
-
-#### Output from extractTriples
-
-```ruby
-{
-  "data": {
-    "extractTriples": [
-      {
-        "predicatePhrase": {
-          "value": "bought"
-        },
-        "subjectPhrase": {
-          "value": "Alex"
-        },
-        "objectPhrase": {
-          "value": "bike"
-        }
-      }
-    ]
-  }
-}
-```
-
-#### Input to extractByPattern
-
-```ruby
-query {
-    extractByPattern(text : "John went to Lynwood and bought a pizza", patterns : [{predicateLemmas : ["purchase"], subjectEntityPattern : ["ANY"], objectEntityPattern : ["ANY"]}]) {
-    predicateMatch {
-      snippet {
-        value
-      }
-    }
-    subjectMatch {
-        snippet {
-        value
-      }
-
-    }
-    objectMatch {
-        snippet {
-        value
-      }
-    }
-    }
-}
-```
-
-#### Output from extractByPattern
-
-```ruby
-{
-  "data": {
-    "extractByPattern": [
-      {
-        "predicateMatch": {
-          "snippet": {
-            "value": "bought"
-          }
-        },
-        "subjectMatch": {
-          "snippet": {
-            "value": "John"
-          }
-        },
-        "objectMatch": {
-          "snippet": {
-            "value": "pizza"
-          }
-        }
-      }
-    ]
-  }
-}
-```
+See tutorials for specific examples
 
