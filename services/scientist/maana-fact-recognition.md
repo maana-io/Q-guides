@@ -24,18 +24,6 @@ type Info {
   description: String
 }
 
-type EntityMention {
-  fromKindId: ID
-  fromFieldId: ID
-  fromInstanceId: ID
-  fromSpan: String!
-  fromOffset: String!
-  fromText: String!
-  toKindName: String!
-  toInstanceId: ID
-  surfaceForm: String!
-}
-
 type Query {
   # information about the service
   info: Info!
@@ -50,64 +38,6 @@ type Query {
   ): [PatternMatch]
   #extract Facts by example
   extractByExample(example: String!, text: String!): [Gmap]
-}
-
-input CorrespondenceInput {
-  name: String!
-  value: String!
-}
-
-type Mutation {
-  # Given a pattern, a kind and a field and that kind, extract triples from the data.
-  extractByPattern(
-    kindId: ID
-    fieldId: ID
-    patternKindId: ID
-    kindName: String
-    fieldName: String
-    patternKindName: String
-  ): [ID]
-  extractTriples(
-    kindId: ID
-    fieldId: ID
-    kindName: String
-    fieldName: String
-  ): [ID]
-  extractByExample(
-    kindId: ID
-    fieldId: ID
-    storageKindId: ID
-    fieldName: String
-    storageKindName: String
-    kindName: String
-    mapping: [CorrespondenceInput]
-    example: String
-  ): [ID]
-  extractByExampleKind(
-    kindId: ID
-    fieldId: ID
-    exampleKindId: ID
-    kindName: String
-    fieldName: String
-    exampleKindName: String
-  ): [ID]
-}
-
-enum FieldType {
-  BOOL
-  INT
-  FLOAT
-  MONEY
-  EMAIL
-  IP
-  PHONE
-  URL
-  TIME
-  DATE
-  SSN
-  GEOCOORD
-  NAME
-  TEXT
 }
 
 type PatternMatchResult {
@@ -127,28 +57,6 @@ type FieldClassification {
 type FieldClassifiedEvent {
   kindId: ID!
   fields: [FieldClassification]
-}
-
-type LinkAddedEvent {
-  id: ID!
-  name: String
-  relationId: ID
-  relationName: String
-  weight: Float
-  fromKindId: ID
-  fromKindName: String
-  fromFieldId: ID
-  fromFieldName: String
-  fromInstanceId: ID
-  fromOffset: String
-  fromSpan: String
-  toKindId: ID
-  toKindName: String
-  toFieldId: ID
-  toFieldName: String
-  toInstanceId: ID
-  toOffset: String
-  toSpan: String
 }
 
 # A snippet of characters extracted from a string.
