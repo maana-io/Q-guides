@@ -6,11 +6,11 @@ The service runs automatically whenever a kind is added to Maana. It can also be
 
 #### Types of Fields:
 
-Field classifier relies on the NER service to do classification so anything the NER service can classify, the field classifier can classify.  In addition field classification adds the following flassifications classifications
+Field classifier relies on the NER service to do classification so anything the NER service can classify, the field classifier can classify. In addition field classification adds the following flassifications classifications
 
 1.  NULL
 2.  TEXT (if field value contains more than 20 (default) words)
-4.  CATEGORICAL (if Misc types only and unique values less than 10% (default))
+3.  CATEGORICAL (if Misc types only and unique values less than 10% (default))
 
 ## Assumptions
 
@@ -18,7 +18,7 @@ Field classifier relies on the NER service to do classification so anything the 
 
 ### Schema
 
-```graphql
+```ruby
 type Info {
   id: ID!
   name: String
@@ -132,7 +132,7 @@ The following are currently implemented.
 
 Return the field classification for a given kind with kind id given by id. The return ids are the field ids while name is the name of the field and score is the confidence score.
 
-```graphql
+```ruby
 query {
   fieldClassifications(id: "295ac75b-54d2-4b51-9562-8ecd92808a42") {
     name
@@ -146,7 +146,7 @@ query {
 
 Classify the fields of a kind and kickoff and publish a 'fieldClassified' event. Again, id in the classifyFields function is the kindId. This mutation returns a Bot Action, which can be used to update the UI regarding the status of the long-running classifyFields mutation.
 
-```graphql
+```ruby
 mutation {
   classifyFields(kindId: "295ac75b-54d2-4b51-9562-8ecd92808a42") {
     id
