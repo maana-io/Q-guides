@@ -147,7 +147,7 @@ Content-Type: application/json
 
 #### Input to extractTriples
 
-```ruby
+```graphql
 query {
     extractTriples(text: "Alex bought a bike") {
         predicatePhrase {
@@ -165,7 +165,7 @@ query {
 
 #### Output from extractTriples
 
-```ruby
+```json
 {
   "data": {
     "extractTriples": [
@@ -187,7 +187,7 @@ query {
 
 #### Input to extractByPattern
 
-```ruby
+```graphql
 query {
     extractByPattern(text : "John went to Lynwood and bought a pizza", patterns : [{predicateLemmas : ["purchase"], subjectEntityPattern : ["ANY"], objectEntityPattern : ["ANY"]}]) {
     predicateMatch {
@@ -206,13 +206,13 @@ query {
         value
       }
     }
-    }
+  }
 }
 ```
 
 #### Output from extractByPattern
 
-```ruby
+```json
 {
   "data": {
     "extractByPattern": [
@@ -237,4 +237,65 @@ query {
   }
 }
 ```
+#### Input ExtractByExample
 
+```graphql
+query {
+    extractByExample(example : "John went to safeway and bought a pizza in Lynwood", text : "Larry goes to Gerks and purchased a bike in Issaquah") {
+        predicateCorrespondences {
+            basePredicate
+            targetPredicate
+        }
+        entityCorrespondences {
+            baseEntity
+            targetEntity
+        }
+        score
+    }
+}
+```
+
+#### Output ExtractByExample
+```json
+{
+    "data": {
+        "extractByExample": [
+        {
+            "predicateCorrespondences": [
+            {
+                "basePredicate": "goes to",
+                "targetPredicate": "went"
+            },
+            {
+                "basePredicate": "purchased",
+                "targetPredicate": "bought"
+            },
+            {
+                "basePredicate": "purchased bike in",
+                "targetPredicate": "bought pizza in"
+            }
+            ],
+            "entityCorrespondences": [
+            {
+                "baseEntity": "Gerks",
+                "targetEntity": "safeway"
+            },
+            {
+                "baseEntity": "Issaquah",
+                "targetEntity": "Lynwood"
+            },
+            {
+                "baseEntity": "Larry",
+                "targetEntity": "John"
+            },
+            {
+                "baseEntity": "bike",
+                "targetEntity": "pizza"
+            }
+            ],
+            "score": 13.5
+        }
+        ]
+    }
+}
+```
