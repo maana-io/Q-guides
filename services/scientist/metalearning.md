@@ -308,7 +308,6 @@ Example(s)
             # featureFields:["age","education","occupation","sex","nativecountry"], # Optionally choose only those fields to include
             featureTypes: ["interger", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical"],
             candidateModels: ["random_forest_classifier", "logistic_classifier"],
-            candidateFeaturizers:["bag_of_words"],
             candidatePreprocessors:["noop"],
             folds:10, # This is the number of cross validation folds to use. Default and a good pick is 10
             modelProfilingEpisodes:10,
