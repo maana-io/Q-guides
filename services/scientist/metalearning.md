@@ -3,7 +3,7 @@ Metalearning
 
 Maana Metalearning service allows one to automatically create machine learning models from data in Maana. It creates knowledge in the knowledge graph by having classifiers, featurizers and their attributes as first class citizens, allowing us to reason over them. This work is presented in the following papers:
 
-F. Yang, D. Lyu, B. Liu, and S. Gustafson, Peorl: Integrating symbolic planning and hierarchical reinforcement learning for robust decision-making, International Joint Conference of Articial Intelligence (IJCAI), 2018.
+F. Yang, D. Lyu, B. Liu, and S. Gustafson, Peorl: Integrating symbolic planning and hierarchical reinforcement learning for robust decision-making, International Joint Conference of Artificial Intelligence (IJCAI), 2018.
 
 Fangkai Yang, Steven Gustafson, Alexander Elkholy, Daoming Lyu, and Bo Liu, Program search for machine learning pipelines leveraging symbolic planning and reinforcement learning, Genetic Programming Theory and Practice XVI (Ann Arbor, USA) (Wolfgang Banzhaf, Leigh Sheneman, Lee Spector, and Bill Tozier, eds.), Springer, 19-21 May 2018, Forthcoming.
 
@@ -308,7 +308,6 @@ Example(s)
             # featureFields:["age","education","occupation","sex","nativecountry"], # Optionally choose only those fields to include
             featureTypes: ["interger", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical", "categorical"],
             candidateModels: ["random_forest_classifier", "logistic_classifier"],
-            candidateFeaturizers:["bag_of_words"],
             candidatePreprocessors:["noop"],
             folds:10, # This is the number of cross validation folds to use. Default and a good pick is 10
             modelProfilingEpisodes:10,
