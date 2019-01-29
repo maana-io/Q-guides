@@ -34,7 +34,6 @@ Queries of this kind facilitate equational reasoning with real world measurement
 1. The service uses a constructive pattern matching algorithm to parse physical quantities from text.    Acronyms, abreviations and part numbers can easily be misidentified as units of measure.    Some data cleansing may be required to get optimal performance.
 
 ## Schema
-
 ```ruby
 type Info {
   # A unique identifier for the service
@@ -100,7 +99,7 @@ input UnitOfMeasurePrefixRef {
 # A physical dimension
 input PhysicalDimensionInput {
   # A human readable name for the physical dimension (e.g. "LENGTH")
-  name: String!
+  name: String
   # The formula of the physical dimension
   formula: String!
   # A list of alternate names for the physical dimension.
@@ -122,7 +121,7 @@ input SimpleUnitOfMeasureInput {
   # The physical dimension of observations that this unit can quantify.
   dimension: PhysicalDimensionInput!
   # A list of possible alternative symbols used to denote this unit of measure (e.g. "meter", "metre")
-  aliases: [String]!
+  aliases: [String]
   # Get the unit conversion from this unit of measure to the standard SI unit for this dimension.
   siUnitConversion: UnitConversionInput!
 }
@@ -131,7 +130,7 @@ input UnitOfMeasureFactorInput {
   # prefix of the unit of measure, if it has one.
   prefix: UnitOfMeasurePrefixInput
   # exponent applied to the base unit of measure, if it has one.
-  exponent: Int
+  exponent: Int!
   # Get the base unit of measure from which this unit is defined.
   base: SimpleUnitOfMeasureInput!
 }
@@ -144,7 +143,7 @@ input UnitOfMeasureInput {
   # The physical dimension of observations that this unit can quantify.
   dimension: PhysicalDimensionInput
   # A list of possible alternative symbols used to denote this unit of measure (e.g. "meter", "metre")
-  aliases: [String]!
+  aliases: [String]
   # Get the unit conversion from this unit of measure to the standard SI unit for this dimension.
   siUnitConversion: UnitConversionInput
   # factors of this unit.
@@ -158,7 +157,7 @@ input UnitOfMeasurePrefixInput {
   # The intensification factor implied by the prefix.
   multiplier: Float!
   # A list of possible alternative symbols used for the prefix (e.g. "kilo")
-  aliases: [String]!
+  aliases: [String]
 }
 
 # A system of units.
@@ -232,7 +231,7 @@ type SimpleUnitOfMeasure {
   # A list of possible alternative symbols used to denote this unit of measure (e.g. "meter", "metre")
   aliases: [String]
   # Get the unit conversion from this unit of measure to the standard SI unit for this dimension.
-  siUnitConversion: UnitConversion
+  siUnitConversion: UnitConversion!
   # Is the unit of measure unitless ?
   isUnitless: Boolean
 }
@@ -258,7 +257,7 @@ type UnitOfMeasure {
   # Get the base unit of measure from which this unit is defined.  Null if this unit is elementary.
   base: UnitOfMeasure
   # Get the factors of this unit of measure if it is a product or quotient.  Empty otherwise.
-  factors: [UnitOfMeasureFactor]
+  factors: [UnitOfMeasureFactor]!
 
   # Compute the scalar product of this unit of measure with the given prefix.
   scale(prefix: UnitOfMeasurePrefixInput): UnitOfMeasure
@@ -289,7 +288,7 @@ type UnitOfMeasureFactor {
   # Get the prefix of the unit of measure, if it has one.
   prefix: UnitOfMeasurePrefix
   # Get the exponent applied to the base unit of measure, if it has one.
-  exponent: Int
+  exponent: Int!
   # Get the base unit of measure from which this unit is defined.
   base: SimpleUnitOfMeasure!
 }
@@ -484,82 +483,82 @@ type Query {
   ): PhysicalQuantity
 
   # (DEPRECATED) - use PhysicalQuantity:roundTo instead.
-  roundTo(input: PhysicalQuantityRef, precision: Int!): PhysicalQuantity!
+  roundTo(input: PhysicalQuantityInput, precision: Int!): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:convertTo instead.
   convertTo(
-    input: PhysicalQuantityRef
+    input: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput!
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:canBeConvertedTo instead.
   canBeConvertedTo(
-    input: PhysicalQuantityRef
+    input: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
   ): Boolean!
 
   # (DEPRECATED) - use PhysicalQuantity:negate instead
   negate(
-    input: PhysicalQuantityRef
+    input: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:add instead
   add(
-    input: PhysicalQuantityRef
-    summand: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    summand: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:sub instead
   sub(
-    input: PhysicalQuantityRef
-    subtrahend: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    subtrahend: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # Compute the n-ary sum of a given list of physical quantities.  Must be dimensionally consistent.
   sum(
-    summands: [PhysicalQuantityRef]!
+    summands: [PhysicalQuantityInput]!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
 
   # (DEPRECATED) - use PhysicalQuantity:reciprocal instead
   reciprocal(
-    input: PhysicalQuantityRef
+    input: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:scale instead
   scale(
-    input: PhysicalQuantityRef
+    input: PhysicalQuantityInput
     scalar: Float!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:mul instead
   mul(
-    input: PhysicalQuantityRef
-    factor: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    factor: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # (DEPRECATED) - use PhysicalQuantity:add instead
   div(
-    input: PhysicalQuantityRef
-    divisor: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    divisor: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # Compute the n-ary product of a given list of physical quantities.
   product(
-    factors: [PhysicalQuantityRef]!
+    factors: [PhysicalQuantityInput]!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
 
 # (DEPRECATED) - use PhysicalQuantity:power instead
-  power(input: PhysicalQuantityRef,
+  power(input: PhysicalQuantityInput,
       exponent: Int,
       toUnitInput: UnitOfMeasureInput
       precision: Int
@@ -567,69 +566,69 @@ type Query {
 
 # (DEPRECATED) - use PhysicalQuantity:max instead
   max(
-    input: PhysicalQuantityRef
-    argument: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    argument: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
 # (DEPRECATED) - use PhysicalQuantity:min instead
   min(
-    input: PhysicalQuantityRef
-    argument: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    argument: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # Compute the maximum of a given list of physical quantities.   Must be dimensionally consistent.
   maximum(
-    inputs: [PhysicalQuantityRef]!
+    inputs: [PhysicalQuantityInput]!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # Compute the minimum of a given list of physical quantities.   Must be dimensionally consistent.
   minimum(
-    inputs: [PhysicalQuantityRef]!
+    inputs: [PhysicalQuantityInput]!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
   # Compute the average of a given list of physical quantities.   Must be dimensionally consistent.
   average(
-    inputs: [PhysicalQuantityRef]!
+    inputs: [PhysicalQuantityInput]!
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): PhysicalQuantity!
 
 # (DEPRECATED) - use PhysicalQuantity:isGT instead
   isGT(
-    input: PhysicalQuantityRef
-    rhs: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    rhs: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): Boolean!
 # (DEPRECATED) - use PhysicalQuantity:isGTE instead
   isGTE(
-    input: PhysicalQuantityRef
-    rhs: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    rhs: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): Boolean!
 # (DEPRECATED) - use PhysicalQuantity:isLT instead
   isLT(
-    input: PhysicalQuantityRef
-    rhs: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    rhs: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): Boolean!
 # (DEPRECATED) - use PhysicalQuantity:isLTE instead
   isLTE(
-    input: PhysicalQuantityRef
-    rhs: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    rhs: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): Boolean!
 # (DEPRECATED) - use PhysicalQuantity:isEqual instead
   isEqual(
-    input: PhysicalQuantityRef
-    rhs: PhysicalQuantityRef
+    input: PhysicalQuantityInput
+    rhs: PhysicalQuantityInput
     toUnitInput: UnitOfMeasureInput
     precision: Int
   ): Boolean!
