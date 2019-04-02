@@ -112,7 +112,7 @@ can be queried as:
         <p>...</p>
         <p>const documents = await client.query({
           <br />query: SEARCH_QUERY,</p>
-        <p>variables: {term: "Kratos"}</p>
+        <p>variables: {term: &quot;Kratos&quot;}</p>
         <p>})</p>
       </td>
     </tr>
