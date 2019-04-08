@@ -1,10 +1,10 @@
 ## Maana NER Modeling service
 
-This is the maana NER (Named Entity Recognition) Modeling graphql microservice
+This is the maana NER (Named Entity Recognition) Modeling graphql microservice.
 It provides:
 
 1.  Extract entities (Person name, Location, Phone number, ...) from text.
-2.  Training new CRF (Conditional Random Field) Classifier Model.
+2.  Training new CRF (Conditional Random Field) Classifier Model. https://en.wikipedia.org/wiki/Conditional_random_field
 3.  Testing CRF Model.
 
 Maana-NER-Modeling detects entities in text data using:
@@ -57,8 +57,13 @@ Maana-NER-Modeling detects entities in text data using:
 | extendXMLText();        | Extending XML-tagged entities throughout the whole text.                                 |
 | extend();               | Extending tagged entities throughout the whole text.                                     |
 | extendBatch();          | Extending tagged entities throughout the whole texts.                                    |
+| splitToSentences();     | Split text to sentences.                                                                 |
 
 ## Schema
+
+<details style="color:green">
+<summary>click to expand Schema</summary>
+<p>
 
 ```ruby
 type Info {
@@ -290,6 +295,9 @@ schema {
 }
 ```
 
+</p>
+</details>
+
 ## Formats of train/test data
 
 dataURL (in training / testing queries) is a path or URL to data file of many formats: .json, .csv, .tsv, .txt
@@ -312,36 +320,36 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
         "tag": "Organization",
         "token": "Microsoft Corporation",
         "span": 21,
-        "offset": 0
-        // "tokens": ["Microsoft", "Corporation"],
-        // "start": 0,
-        // "end": 2
+        "offset": 0,
+        "tokens": ["Microsoft", "Corporation"],
+        "start": 0,
+        "end": 2
       },
       {
         "tag": "Location",
         "token": "Redmond Washington",
         "span": 18,
-        "offset": 79
-        // "tokens": ["Redmond", "Washington."],
-        // "start": 9,
-        // "end": 11
+        "offset": 79,
+        "tokens": ["Redmond", "Washington."],
+        "start": 9,
+        "end": 11
       }
     ]
   }
-  //... other phrases ...
+  //, ... other phrases ...
 ]
 ```
 
 2.  Document .json
 
 ```json
- {
-       "title": "BOEM Data - Common Entities",
-       "type": "Drilling Comments".
-       "phrases": [
-         //... phrase array ...
-       ]
- }
+{
+  "title": "BOEM Data - Common Entities",
+  "type": "Drilling Comments",
+  "phrases": [
+    //... phrase array ...
+  ]
+}
 ```
 
 3.  Document array .json
