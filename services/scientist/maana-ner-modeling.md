@@ -306,9 +306,9 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
     Each entity can be defined one of combination:
 
 - {tag, token} - entities in this format must to be ordered in according of their appearance in the text
-- {tag, span, offset} - this is character-based format and entities are not to be ordered
+- {tag, span, offset} - this is character-based format and entities may not be ordered
 - {tag, tokens} - this is word-based format and entities must to be ordered
-- {tag, start, end} - this is word-based format and entities are not to be ordered
+- {tag, start, end} - this is word-based format and entities may not be ordered
 
 ```json
 [
@@ -459,7 +459,9 @@ query Normalize {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -560,6 +562,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of mutation query - saving progress
 
 It saves annotated sentences to Maana Kind. Before saving it makes normalization.
@@ -605,7 +610,9 @@ mutation SaveProgress {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -622,6 +629,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Example of read progress
 
@@ -653,7 +663,9 @@ query ReadProgress {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -767,6 +779,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of building new CRF model on training data from file:
 
 There are several differences between mutation - 'trainingToKind' and query - 'training':
@@ -845,7 +860,9 @@ mutation TrainFromFileToKind {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -985,6 +1002,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ```graphql
 query TrainFromFile {
   training(
@@ -1054,7 +1074,9 @@ mutation TrainFromTextToKind {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1087,6 +1109,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Example of testing from file:
 
@@ -1137,7 +1162,9 @@ mutation AccyracyTestFromFile {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1212,6 +1239,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Example of testing on the data passed to query
 
@@ -1337,7 +1367,9 @@ query ExtendXMLLabeling {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1346,6 +1378,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Example of extending tagged entities throughout the whole text.
 
@@ -1407,7 +1442,9 @@ query ExtendLabeling {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1448,6 +1485,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of 'split to sentences' query
 
 It's not just splitting text to sentences by dots, it's more complicated splitting based on Stanford model.
@@ -1461,7 +1501,9 @@ query SplitToSentences {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1481,6 +1523,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Example of extending tagged entities for each of input text.
 
@@ -1544,7 +1589,9 @@ query ExtendBatchLabeling {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1596,6 +1643,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Examples of extract query to run with default Stanford model:
 
 ```graphql
@@ -1616,7 +1666,9 @@ query Extract {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1658,6 +1710,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of batch extract query to run with default Stanford model:
 
 ```graphql
@@ -1681,7 +1736,9 @@ query Extract {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -1715,6 +1772,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ### Examples of extract query to run with customer model:
 
@@ -1754,7 +1814,9 @@ query ExtractWithModel {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 - text: original text
 - xtext: xml marked text
@@ -1915,6 +1977,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of batch extract query. It takes a list of texts as an input.
 
 ```graphql
@@ -1948,7 +2013,9 @@ query ExtractBatchWithModel {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -2025,6 +2092,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of "is surface form" query - returns true if a particular source is exactly a surface form of "entityName"
 
 ```graphql
@@ -2033,7 +2103,9 @@ query IsSurfaceForm {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -2042,6 +2114,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ```graphql
 query IsSurfaceFormWithModel {
@@ -2057,7 +2132,9 @@ query IsSurfaceFormWithModel {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -2067,6 +2144,9 @@ Output result:
 }
 ```
 
+</p>
+</details>
+
 ### Example of parse query:
 
 ```graphql
@@ -2075,7 +2155,9 @@ query Parse {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 - returns the parsed entity name if the source text is exactly as entity with no additional text to the left or right of the entity,
 - otherwise return empty string.
@@ -2087,6 +2169,9 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
 
 ```graphql
 query ParseWithModel {
@@ -2101,7 +2186,9 @@ query ParseWithModel {
 }
 ```
 
-Output result:
+<details style="color:green">
+<summary>click to expand output results</summary>
+<p>
 
 ```json
 {
@@ -2110,3 +2197,6 @@ Output result:
   }
 }
 ```
+
+</p>
+</details>
