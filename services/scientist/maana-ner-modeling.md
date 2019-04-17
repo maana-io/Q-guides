@@ -61,7 +61,7 @@ Maana-NER-Modeling detects entities in text data using two approaches:
 ## Schema
 
 <details>
-<summary color = 'green'>click to expand Schema</summary>
+<summary>click to expand Schema</summary>
 <p>
 
 ```ruby
@@ -309,7 +309,7 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 - {tag, tokens} - this is word-based format and entities must to be ordered
 - {tag, start, end} - this is word-based format and entities may not be ordered
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -348,7 +348,7 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 
 2.  Document .json
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -367,7 +367,7 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 
 3.  Document array .json
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -382,7 +382,7 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 
 4.  Phrase list .txt or .csv or .tsv
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -401,7 +401,7 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 
 5. xml-tagged .txt or .csv or .tsv
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -422,7 +422,7 @@ He is the CEO of <Organization>Microsoft</Organization>.
 - each phrase ended with dot .
 - empty line between phrases
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -457,7 +457,7 @@ Microsoft Organization
 - To avoid ambiguity use xml-tagged text or character based entity format - {tag, token, offset, span}.
 - Words based data format - {tokens, start, end, color} is developed to use in Active Learning UI and is not precise format because entity sometime is the part of word but not separate word.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -507,7 +507,7 @@ query Normalize {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -617,7 +617,7 @@ query Normalize {
 
 It saves annotated sentences to Maana Kind. Before saving it makes normalization.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -665,7 +665,7 @@ mutation SaveProgress {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -692,7 +692,7 @@ mutation SaveProgress {
 
 It reads saved sentences from Maana Kind
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -725,7 +725,7 @@ query ReadProgress {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -846,7 +846,7 @@ query ReadProgress {
 
 ### TRAINING query
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -933,7 +933,7 @@ There are several differences between mutation - 'trainingToKind' and query - 't
 
 - data.URL is a path or URL to data file of many formats: .json, .csv, .tsv, .txt (see explanation below)
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1012,7 +1012,7 @@ mutation TrainFromFileToKind {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1162,7 +1162,7 @@ Building new CRF model on training data passed to query
 - training data will be saved to "NERLabeledData" Kind in normalized format
 - training data may be retrieved back from Maana later with the query - readProgress()
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1226,7 +1226,7 @@ mutation TrainFromTextToKind {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1267,7 +1267,7 @@ mutation TrainFromTextToKind {
 
 ### TESTING query
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1328,7 +1328,7 @@ query Test {
 
 The only difference from 'testing' query is that mutation will make a record into the 'CRFModelStat' Kind in Maana
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1385,7 +1385,7 @@ mutation AccyracyTestFromFile {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1468,7 +1468,7 @@ mutation AccyracyTestFromFile {
 
 Testing on the data passed to query
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1558,7 +1558,7 @@ Parameter 'length':
 1.  if omitted or 0 or >= model size then return whole Model
 2.  otherwise - return first portion of bytes, next query return next portion, etc. until return 0 which means end of model
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1586,7 +1586,7 @@ query GetModel {
 It's not just splitting text to sentences by dots, it's more complicated splitting based on Stanford model.
 Try your own examples to understand how it works.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1601,7 +1601,7 @@ query SplitToSentences {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1636,7 +1636,7 @@ Extending XML-tagged entities throughout the whole text.
 - After that we can make correction of detected entities and repeat process again.
 - So, service works as auto-annotation system to spead up of training datasets preparation process.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1656,7 +1656,7 @@ query ExtendXMLLabeling {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1681,7 +1681,7 @@ Extending tagged entities throughout the whole text (see comments for extendXMLT
 - calcProb : calculation of probability distribution vector for each detected entity
 - k : if > 0, return probabilities of k best annotations (related to whole text)
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1741,7 +1741,7 @@ query ExtendLabeling {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1794,7 +1794,7 @@ Unlike extend() query if we have input data as a set of texts use extendBatch().
 - Before applying extendBatch() take advantage of splitToSentences() query.
 - See also comments for extendXMLText() and extend() above.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1862,7 +1862,7 @@ query ExtendBatchLabeling {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -1923,7 +1923,7 @@ query ExtendBatchLabeling {
 
 Extract query to run with default Stanford model:
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -1948,7 +1948,7 @@ query Extract {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2000,7 +2000,7 @@ Extract query to run with customer model:
 - calcProb : calculation of probability distribution vector for each detected entity
 - k : if > 0, return probabilities of k best annotations (related to whole text)
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2043,7 +2043,7 @@ query ExtractWithModel {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2213,7 +2213,7 @@ query ExtractWithModel {
 
 Extract query to run with default Stanford model:
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2241,7 +2241,7 @@ query Extract {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2285,7 +2285,7 @@ Batch extract query to run with customer model:
 
 - It takes a list of texts as an input.
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2326,7 +2326,7 @@ query ExtractBatchWithModel {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2414,7 +2414,7 @@ Example of "is surface form" query to run with default Stanford model:
 
 - returns true if a particular source is exactly a surface form of "entityName"
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2427,7 +2427,7 @@ query IsSurfaceForm {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2444,7 +2444,7 @@ query IsSurfaceForm {
 
 Example of "is surface form" query to run with customer model:
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2468,7 +2468,7 @@ query IsSurfaceFormWithModel {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2487,7 +2487,7 @@ query IsSurfaceFormWithModel {
 
 Example of parse query to run with default Stanford model:
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2500,7 +2500,7 @@ query Parse {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
@@ -2520,7 +2520,7 @@ query Parse {
 
 Example of parse query to run with customer model:
 
-<details style="color:green">
+<details>
 <summary>click to expand example</summary>
 <p>
 
@@ -2543,7 +2543,7 @@ query ParseWithModel {
 </p>
 </details>
 
-<details style="color:green">
+<details>
 <summary>click to expand output results</summary>
 <p>
 
