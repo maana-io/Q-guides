@@ -61,7 +61,7 @@ Maana-NER-Modeling detects entities in text data using two approaches:
 ## Schema
 
 <details>
-<summary style="color:green">click to expand Schema</summary>
+<summary><font face = 'Tahoma' size = '19' color = 'red'>click to expand Schema</font></summary>
 <p>
 
 ```ruby
