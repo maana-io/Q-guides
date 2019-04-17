@@ -309,6 +309,10 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 - {tag, tokens} - this is word-based format and entities must to be ordered
 - {tag, start, end} - this is word-based format and entities may not be ordered
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```json
 [
   {
@@ -339,7 +343,14 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 ]
 ```
 
+</p>
+</details>
+
 2.  Document .json
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```json
 {
@@ -351,7 +362,14 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 }
 ```
 
+</p>
+</details>
+
 3.  Document array .json
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```json
 [
@@ -359,7 +377,14 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 ]
 ```
 
+</p>
+</details>
+
 4.  Phrase list .txt or .csv or .tsv
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```json
 {
@@ -371,12 +396,22 @@ dataURL (in training / testing queries) is a path or URL to data file of many fo
 //...
 ```
 
+</p>
+</details>
+
 5. xml-tagged .txt or .csv or .tsv
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```xml
 <Person>Satya Narayana Nadella</Person> is from <Location>India</Location>.
 He is the CEO of <Organization>Microsoft</Organization>.
 ```
+
+</p>
+</details>
 
 6. Word-tag .tsv
    This is Stanford lib basic data format. To train new CRF Model all other data formats will be transformed to this format inside service.
@@ -386,6 +421,10 @@ He is the CEO of <Organization>Microsoft</Organization>.
 - punctuation signs , ; . as a separate words
 - each phrase ended with dot .
 - empty line between phrases
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```
 Satya Person
@@ -406,6 +445,9 @@ Microsoft Organization
 
 ```
 
+</p>
+</details>
+
 ## Examples of query and mutation
 
 ### NORMALIZE query
@@ -414,6 +456,10 @@ Microsoft Organization
 - Tagged phrases could be represented in different formats (see examples and comments below in query code)
 - To avoid ambiguity use xml-tagged text or character based entity format - {tag, token, offset, span}.
 - Words based data format - {tokens, start, end, color} is developed to use in Active Learning UI and is not precise format because entity sometime is the part of word but not separate word.
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query Normalize {
@@ -457,6 +503,9 @@ query Normalize {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -568,6 +617,10 @@ query Normalize {
 
 It saves annotated sentences to Maana Kind. Before saving it makes normalization.
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 mutation SaveProgress {
   saveProgressToKind(
@@ -609,6 +662,9 @@ mutation SaveProgress {
 }
 ```
 
+</p>
+</details>
+
 <details style="color:green">
 <summary>click to expand output results</summary>
 <p>
@@ -636,6 +692,10 @@ mutation SaveProgress {
 
 It reads saved sentences from Maana Kind
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query ReadProgress {
   readProgressFromKind(
@@ -661,6 +721,9 @@ query ReadProgress {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -783,6 +846,10 @@ query ReadProgress {
 
 ### TRAINING query
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query TrainFromFile {
   training(
@@ -853,6 +920,9 @@ query TrainFromFile {
 }
 ```
 
+</p>
+</details>
+
 ### TRAINING-TO-KIND mutation
 
 There are several differences between mutation - 'trainingToKind' and query - 'training':
@@ -862,6 +932,10 @@ There are several differences between mutation - 'trainingToKind' and query - 't
 3. mutation makes a record into the 'NERLabeledData' Kind in Maana (if Kind doesn't exist it wiill be created)
 
 - data.URL is a path or URL to data file of many formats: .json, .csv, .tsv, .txt (see explanation below)
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 mutation TrainFromFileToKind {
@@ -934,6 +1008,9 @@ mutation TrainFromFileToKind {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -1085,6 +1162,10 @@ Building new CRF model on training data passed to query
 - training data will be saved to "NERLabeledData" Kind in normalized format
 - training data may be retrieved back from Maana later with the query - readProgress()
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 mutation TrainFromTextToKind {
   trainingToKind(
@@ -1142,6 +1223,9 @@ mutation TrainFromTextToKind {
 }
 ```
 
+</p>
+</details>
+
 <details style="color:green">
 <summary>click to expand output results</summary>
 <p>
@@ -1182,6 +1266,10 @@ mutation TrainFromTextToKind {
 </details>
 
 ### TESTING query
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query Test {
@@ -1233,9 +1321,16 @@ query Test {
 }
 ```
 
+</p>
+</details>
+
 ### TESTING-TO-KIND mutation
 
 The only difference from 'testing' query is that mutation will make a record into the 'CRFModelStat' Kind in Maana
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 mutation AccyracyTestFromFile {
@@ -1286,6 +1381,9 @@ mutation AccyracyTestFromFile {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -1370,6 +1468,10 @@ mutation AccyracyTestFromFile {
 
 Testing on the data passed to query
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 mutation AccyracyTestFromTexts {
   testingToKind(
@@ -1445,6 +1547,9 @@ mutation AccyracyTestFromTexts {
 }
 ```
 
+</p>
+</details>
+
 ### GET-MODEL query
 
 Return Model in format - encoded Base64 String
@@ -1452,6 +1557,10 @@ Parameter 'length':
 
 1.  if omitted or 0 or >= model size then return whole Model
 2.  otherwise - return first portion of bytes, next query return next portion, etc. until return 0 which means end of model
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query GetModel {
@@ -1469,10 +1578,17 @@ query GetModel {
 }
 ```
 
+</p>
+</details>
+
 ### SPLIT-TO-SENTENCES query
 
 It's not just splitting text to sentences by dots, it's more complicated splitting based on Stanford model.
 Try your own examples to understand how it works.
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query SplitToSentences {
@@ -1481,6 +1597,9 @@ query SplitToSentences {
   )
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -1517,6 +1636,10 @@ Extending XML-tagged entities throughout the whole text.
 - After that we can make correction of detected entities and repeat process again.
 - So, service works as auto-annotation system to spead up of training datasets preparation process.
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query ExtendXMLLabeling {
   extendXMLText(
@@ -1529,6 +1652,9 @@ query ExtendXMLLabeling {
   )
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -1554,6 +1680,10 @@ Extending tagged entities throughout the whole text (see comments for extendXMLT
 - If we see that difference between first and second k-best probabilities is big enough it good sign of model verification.
 - calcProb : calculation of probability distribution vector for each detected entity
 - k : if > 0, return probabilities of k best annotations (related to whole text)
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query ExtendLabeling {
@@ -1608,6 +1738,9 @@ query ExtendLabeling {
 }
 ```
 
+</p>
+</details>
+
 <details style="color:green">
 <summary>click to expand output results</summary>
 <p>
@@ -1660,6 +1793,10 @@ Unlike extend() query if we have input data as a set of texts use extendBatch().
 
 - Before applying extendBatch() take advantage of splitToSentences() query.
 - See also comments for extendXMLText() and extend() above.
+
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
 
 ```graphql
 query ExtendBatchLabeling {
@@ -1722,6 +1859,9 @@ query ExtendBatchLabeling {
 }
 ```
 
+</p>
+</details>
+
 <details style="color:green">
 <summary>click to expand output results</summary>
 <p>
@@ -1783,6 +1923,10 @@ query ExtendBatchLabeling {
 
 Extract query to run with default Stanford model:
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query Extract {
   extract(source: "Mikhael lives in Seattle and works for Google.") {
@@ -1800,6 +1944,9 @@ query Extract {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -1853,6 +2000,10 @@ Extract query to run with customer model:
 - calcProb : calculation of probability distribution vector for each detected entity
 - k : if > 0, return probabilities of k best annotations (related to whole text)
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query ExtractWithModel {
   extract(
@@ -1888,6 +2039,9 @@ query ExtractWithModel {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2059,6 +2213,10 @@ query ExtractWithModel {
 
 Extract query to run with default Stanford model:
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query Extract {
   extractBatch(
@@ -2079,6 +2237,9 @@ query Extract {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2124,6 +2285,10 @@ Batch extract query to run with customer model:
 
 - It takes a list of texts as an input.
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query ExtractBatchWithModel {
   extractBatch(
@@ -2157,6 +2322,9 @@ query ExtractBatchWithModel {
   }
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2246,11 +2414,18 @@ Example of "is surface form" query to run with default Stanford model:
 
 - returns true if a particular source is exactly a surface form of "entityName"
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query IsSurfaceForm {
   isSurfaceForm(source: "Seattle", tag: "Location")
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2269,6 +2444,10 @@ query IsSurfaceForm {
 
 Example of "is surface form" query to run with customer model:
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query IsSurfaceFormWithModel {
   isSurfaceForm(
@@ -2285,6 +2464,9 @@ query IsSurfaceFormWithModel {
   )
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2305,11 +2487,18 @@ query IsSurfaceFormWithModel {
 
 Example of parse query to run with default Stanford model:
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query Parse {
   parse(source: "Forrest Gump")
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
@@ -2331,6 +2520,10 @@ query Parse {
 
 Example of parse query to run with customer model:
 
+<details style="color:green">
+<summary>click to expand example</summary>
+<p>
+
 ```graphql
 query ParseWithModel {
   parse(
@@ -2346,6 +2539,9 @@ query ParseWithModel {
   )
 }
 ```
+
+</p>
+</details>
 
 <details style="color:green">
 <summary>click to expand output results</summary>
