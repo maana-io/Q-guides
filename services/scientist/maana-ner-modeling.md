@@ -461,7 +461,7 @@ Microsoft Organization
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query Normalize {
   normalize(
     sources: [
@@ -621,7 +621,7 @@ It saves annotated sentences to Maana Kind. Before saving it makes normalization
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 mutation SaveProgress {
   saveProgressToKind(
     model: { name: "myModel" }
@@ -696,7 +696,7 @@ It reads saved sentences from Maana Kind
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ReadProgress {
   readProgressFromKind(
     dataKindRecordId: "6fc730d5-a363-4393-ac58-600649b61ad4"
@@ -850,7 +850,7 @@ query ReadProgress {
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query TrainFromFile {
   training(
     data: {
@@ -937,7 +937,7 @@ There are several differences between mutation - 'trainingToKind' and query - 't
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 mutation TrainFromFileToKind {
   trainingToKind(
     data: {
@@ -1166,7 +1166,7 @@ Building new CRF model on training data passed to query
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 mutation TrainFromTextToKind {
   trainingToKind(
     data: {
@@ -1271,7 +1271,7 @@ mutation TrainFromTextToKind {
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query Test {
   testing(
     data: {
@@ -1332,7 +1332,7 @@ The only difference from 'testing' query is that mutation will make a record int
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 mutation AccyracyTestFromFile {
   testingToKind(
     data: {
@@ -1472,7 +1472,7 @@ Testing on the data passed to query
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 mutation AccyracyTestFromTexts {
   testingToKind(
     data: {
@@ -1562,7 +1562,7 @@ Parameter 'length':
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query GetModel {
   getModel(
     model: {
@@ -1590,7 +1590,7 @@ Try your own examples to understand how it works.
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query SplitToSentences {
   splitToSentences(
     text: "Saint Petersburg (Russian: Санкт-Петербу́рг) is Russia's second-largest city after Moscow, with 5 million inhabitants in 2012, part of the Saint Petersburg agglomeration with a population of 6.2 million (2015). An important Russian port on the Baltic Sea, it has a status of a federal subject (a federal city). Situated on the Neva River, at the head of the Gulf of Finland on the Baltic Sea, it was founded by Tsar Peter the Great on 27 May [O.S. 16 May] 1703. On 1 September 1914, the name was changed from Saint Petersburg to Petrograd (Russian: Петрогра́д), on 26 January 1924 to Leningrad (Russian: Ленингра́д), and on 1 October 1991 back to its original name. During the periods 1713–1728 and 1732–1918, Saint Petersburg was the capital of Imperial Russia. In 1918, the central government bodies moved to Moscow, which is about 625 km (388 miles) to the south-east. Saint Petersburg is one of the most modern cities of Russia, as well as its cultural capital. The Historic Centre of Saint Petersburg and Related Groups of Monuments constitute a UNESCO World Heritage Site. Saint Petersburg is home to the Hermitage, one of the largest art museums in the world. Many foreign consulates, international corporations, banks and businesses have offices in Saint Petersburg."
@@ -1640,7 +1640,7 @@ Extending XML-tagged entities throughout the whole text.
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ExtendXMLLabeling {
   extendXMLText(
     model: {
@@ -1685,7 +1685,7 @@ Extending tagged entities throughout the whole text (see comments for extendXMLT
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ExtendLabeling {
   extend(
     model: {
@@ -1798,7 +1798,7 @@ Unlike extend() query if we have input data as a set of texts use extendBatch().
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ExtendBatchLabeling {
   extendBatch(
     model: {
@@ -1927,7 +1927,7 @@ Extract query to run with default Stanford model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query Extract {
   extract(source: "Mikhael lives in Seattle and works for Google.") {
     text
@@ -2004,7 +2004,7 @@ Extract query to run with customer model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ExtractWithModel {
   extract(
     source: "Daily update notification made to BSEE Houma District, Bobby Nelson."
@@ -2217,7 +2217,7 @@ Extract query to run with default Stanford model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query Extract {
   extractBatch(
     sources: [
@@ -2289,7 +2289,7 @@ Batch extract query to run with customer model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ExtractBatchWithModel {
   extractBatch(
     sources: [
@@ -2418,7 +2418,7 @@ Example of "is surface form" query to run with default Stanford model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query IsSurfaceForm {
   isSurfaceForm(source: "Seattle", tag: "Location")
 }
@@ -2448,7 +2448,7 @@ Example of "is surface form" query to run with customer model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query IsSurfaceFormWithModel {
   isSurfaceForm(
     source: "BOEM"
@@ -2491,7 +2491,7 @@ Example of parse query to run with default Stanford model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query Parse {
   parse(source: "Forrest Gump")
 }
@@ -2524,7 +2524,7 @@ Example of parse query to run with customer model:
 <summary>click to expand example</summary>
 <p>
 
-```javascript
+```python
 query ParseWithModel {
   parse(
     source: "BOEM"
