@@ -40,7 +40,7 @@ GraphQl query language is maintainable, with the ability to evolve an applicatio
 * It fetches only the data that is needed.
 * It has the ability to specify data requirements locally.
 
-GraphQL is strongly typed and introspective, featuring documentation that is built-in, powerful tooling, and the ability to can catch errors easily.
+GraphQL is strongly typed and introspective, featuring documentation that is built-in, powerful tooling, and the ability to catch errors easily.
 
 #### GraphQL acts as a single source of truth: <a id="graphql-acts-as-a-single-source-of-truth"></a>
 
